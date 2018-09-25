@@ -1,28 +1,33 @@
 import React from "react";
-import {View,TouchableOpacity, Text} from 'react-native';
+import {View,TouchableOpacity, Text, WebView,StatusBar} from 'react-native';
 import styles from './styles';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons';
+import  colors  from "../../Config/Colors";
 
 export default class Hiring extends React.Component{
 
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: 'Hiring',
-        drawerLabel: 'Hiring',
-        headerTintColor: '#056839',
+        headerTitle: 'Hiring of Hall',
+        drawerLabel: 'Hiring of Hall',
+        headerTintColor: colors.white,
         headerStyle: {
-          backgroundColor: '#8DC63F',
+          backgroundColor: colors.blue,
         },
         headerLeft: (
           <TouchableOpacity onPress={navigation.toggleDrawer}>
             <Icon name="md-menu"
-              style={{ marginLeft: 10 }} size={30} color="#056839" />
+              style={{ marginLeft: 10 }} size={30} color={colors.white} />
           </TouchableOpacity>
         ),
       })
     render(){
         return(
             <View style = {styles.container}>
-               <Text>Hello Hiring</Text>
+               <WebView
+        source={{uri: 'https://lcahgoa.in/index.php/app/hiringforhall/'}}
+        style={{marginTop: 10}}
+      />
+               <StatusBar hidden={true} />
             </View>
         )
     }

@@ -1,7 +1,8 @@
 import React from 'react';
 import {View,Text, Image,TouchableOpacity, StatusBar, TextInput} from 'react-native';
 import styles from './Styles';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons';
+import  colors  from "../../Config/Colors";
 
 export default class Login extends React.Component{
 
@@ -13,14 +14,14 @@ export default class Login extends React.Component{
     static navigationOptions = ({ navigation }) => ({
         headerTitle: 'Login',
         drawerLabel: 'Login',
-        headerTintColor: '#FFF',
+        headerTintColor: colors.white,
         headerStyle: {
-          backgroundColor: '#032091',
+          backgroundColor: colors.blue,
         },
         headerLeft: (
           <TouchableOpacity onPress={navigation.toggleDrawer}>
             <Icon name="md-menu"
-              style={{ marginLeft: 10 }} size={30} color="#056839" />
+              style={{ marginLeft: 10 }} size={30} color={colors.white} />
           </TouchableOpacity>
         ),
       })
@@ -45,6 +46,17 @@ export default class Login extends React.Component{
                 placeholder = 'Password'
                 onChangeText = {(password)=>this.setState({password})}></TextInput>
                 <StatusBar hidden={true} />
+                <TouchableOpacity>
+                <View style={styles.btn}>
+                <Text style={{color:"#FFF", paddingHorizontal: 10, paddingVertical: 4}}>Login</Text>
+                </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                <Text style = {styles.forgettxt}>Forget Your Password?</Text>
+                </TouchableOpacity>
+                <View style = {styles.fotterview}>
+                    <Text style = {styles.fottertxt}>Copyright © 2014 in Rajhans. All rights reserved.</Text>
+                </View>
             </View>
         )
     }

@@ -9,8 +9,8 @@ export default StyleSheet.create({
         
     },
     logoimage:{
-        height: 380,
-        width: 360
+        height: 170,
+        width: 170
 
     }
 })

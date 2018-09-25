@@ -1,12 +1,14 @@
 import {StyleSheet} from 'react-native';
+import  colors  from "../../Config/Colors";
  export default StyleSheet.create({
      container:{
-         backgroundColor: '#FFF',
+         backgroundColor: colors.white,
          flex: 1,
         
      },
      loginimageview:{
-         alignItems: 'center'
+         alignItems: 'center',
+         marginTop: 20
      },
      loginimg:{
          height: 170,
@@ -24,5 +26,31 @@ import {StyleSheet} from 'react-native';
         marginLeft: 30,
         marginRight: 30
 
-     }
+     },
+     btn:{
+        marginTop:20,
+        backgroundColor: colors.blue,
+        padding: 10,
+        alignItems: 'center',
+        alignSelf: 'center'   
+    },
+    forgettxt:{
+        textAlign: 'center',
+        fontSize: 15,
+        color: colors.red,
+        marginTop: 18
+    },
+    fotterview:{
+        backgroundColor: colors.blue,
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: 5
+    },
+    fottertxt:{
+        textAlign: 'center',
+        color: colors.white,
+        fontSize: 11
+    }
  })

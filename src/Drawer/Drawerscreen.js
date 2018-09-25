@@ -21,15 +21,18 @@ export default class MyDrawer extends React.Component {
 
         return (
             <ScrollView >
-                <View>
-
-                    <View style={styles.bluebox}>
+                <View style={styles.bluebox}>
                             <Image source={require('../Images/appname.png')} style={styles.ImageStyle} />
                     </View>
+                <View style = {
+                    styles.menustyle
+                }>
+
+                    
                     {this.renderDrawerItem({ icon: 'md-home', label: 'Login', key: 'Login' })}
-                    {this.renderDrawerItem({ icon: 'ios-contacts', label: 'Hiring', key: 'Hiring' })}
-                    {this.renderDrawerItem({ icon: 'md-time', label: 'About Us', key: 'About_Us' })}
-                    {this.renderDrawerItem({ icon: 'md-calendar', label: 'Faq', key: 'Faq' })}
+                    {this.renderDrawerItem({ icon: 'ios-contacts', label: 'Hiring of Hall', key: 'Hiring' })}
+                    {this.renderDrawerItem({ icon: 'md-time', label: 'About us', key: 'About_Us' })}
+                    {this.renderDrawerItem({ icon: 'md-calendar', label: 'FAQ', key: 'Faq' })}
 
                 </View>
             </ScrollView>
@@ -47,18 +50,16 @@ const styles = StyleSheet.create({
 
     },
     bluebox: {
-        width: '100%',
+        
         height: 110,
-marginTop:25,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+       
     },
     ImageStyle: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 15,
-        width: '90%',
-        marginLeft: 10,
-        height: 70,
+        width: 262,
+        height: 90,
+        alignSelf: 'center',
+        marginTop: 20
     },
     TextStyle: {
         textAlign: 'center',
@@ -68,4 +69,7 @@ marginTop:25,
         marginBottom: 10,
         fontSize: 18,
     },
+    menustyle:{
+        marginTop: 10
+    }
 })

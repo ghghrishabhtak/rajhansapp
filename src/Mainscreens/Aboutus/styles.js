@@ -3,6 +3,15 @@ import {StyleSheet} from 'react-native';
      container:{
          backgroundColor: '#FFF',
          flex: 1,
-         alignItems: 'center'
+         
+     },
+     viewimg:{
+         padding: 5
+     },
+     img:{
+         width: 350,
+         height: 200,
+         marginTop: 20,
+         alignSelf: 'center'
      }
  })
