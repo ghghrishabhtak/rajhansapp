@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 export default class MyDrawer extends React.Component {
 
     renderDrawerItem = (route) => {
+        
         const onpress = (route.key === 'Login') ?
             () => AsyncStorage.clear().then(p => this.props.navigation.navigate(route.key))
             : () => this.props.navigation.navigate(route.key)
