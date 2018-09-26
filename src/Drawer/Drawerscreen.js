@@ -1,6 +1,7 @@
 import React from 'react';
 import { AsyncStorage, View, ScrollView, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
+import colors from '../Config/Colors'
 
 export default class MyDrawer extends React.Component {
 
@@ -12,7 +13,7 @@ export default class MyDrawer extends React.Component {
         return (
             <TouchableOpacity onPress={onpress} style={{ flexDirection: 'row', padding: 8, marginLeft: 10, marginRight: 10 }}>
                 <Icon name={route.icon} size={30} />
-                <Text style={{ padding: 8, marginLeft: 10, marginRight: 10, fontSize: 16, }}>{route.label}</Text>
+                <Text style={{ padding: 8, marginLeft: 10, marginRight: 10, fontSize: 16, color: colors.blue }}>{route.label}</Text>
             </TouchableOpacity>
         )
     }
@@ -26,13 +27,11 @@ export default class MyDrawer extends React.Component {
                     </View>
                 <View style = {
                     styles.menustyle
-                }>
-
-                    
-                    {this.renderDrawerItem({ icon: 'md-home', label: 'Login', key: 'Login' })}
+                }> 
                     {this.renderDrawerItem({ icon: 'ios-contacts', label: 'Hiring of Hall', key: 'Hiring' })}
                     {this.renderDrawerItem({ icon: 'md-time', label: 'About us', key: 'About_Us' })}
                     {this.renderDrawerItem({ icon: 'md-calendar', label: 'FAQ', key: 'Faq' })}
+                    {this.renderDrawerItem({ icon: 'md-home', label: 'Login', key: 'Login' })}
 
                 </View>
             </ScrollView>

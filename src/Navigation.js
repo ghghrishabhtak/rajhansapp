@@ -6,14 +6,17 @@ import AboutUsScreen from './Mainscreens/Aboutus';
 import FaqScreen from './Mainscreens/Faq';
 import HiringScreen from './Mainscreens/Hiringofhall'; 
 import Drawer from './Drawer/Drawerscreen';
+import ForgetScreen from './Mainscreens/Forgetpassword'
 
 
 const LoginStack = createStackNavigator({
     LoginsScreen: {
         screen: LoginScreen,
     },
-
-
+        ForgetScreen:{
+            screen: ForgetScreen
+        },
+    
 })
 
 const AboutusStack = createStackNavigator({

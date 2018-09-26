@@ -20,7 +20,7 @@ export default class Faq extends React.Component{
         this.setState({isRegisterVisible: false})
       }
       else{
-        this.setState({isRegisterVisible: true})
+        this.setState({isRegisterVisible: true,isAdvanceVisible: false,isSeatVisible:false,isBookVisible:false,isTicketVisible:false,isPaymentVisible:false,isCancellationVisible:false})
       }
       
     }
@@ -29,7 +29,7 @@ export default class Faq extends React.Component{
         this.setState({isAdvanceVisible: false})
       }
       else{
-        this.setState({isAdvanceVisible: true})
+        this.setState({isRegisterVisible: false,isAdvanceVisible: true,isSeatVisible:false,isBookVisible:false,isTicketVisible:false,isPaymentVisible:false,isCancellationVisible:false})
       }
       
     }
@@ -38,7 +38,7 @@ export default class Faq extends React.Component{
         this.setState({isSeatVisible: false})
       }
       else{
-        this.setState({isSeatVisible: true})
+        this.setState({isRegisterVisible: false,isAdvanceVisible: false,isSeatVisible:true,isBookVisible:false,isTicketVisible:false,isPaymentVisible:false,isCancellationVisible:false})
       }
       
     }
@@ -48,7 +48,7 @@ export default class Faq extends React.Component{
         this.setState({isBookVisible: false})
       }
       else{
-        this.setState({isBookVisible: true})
+        this.setState({isRegisterVisible: false,isAdvanceVisible: false,isSeatVisible:false,isBookVisible:true,isTicketVisible:false,isPaymentVisible:false,isCancellationVisible:false})
       }
       
     }
@@ -57,7 +57,7 @@ export default class Faq extends React.Component{
         this.setState({isTicketVisible: false})
       }
       else{
-        this.setState({isTicketVisible: true})
+        this.setState({isRegisterVisible: false,isAdvanceVisible: false,isSeatVisible:false,isBookVisible:false,isTicketVisible:true,isPaymentVisible:false,isCancellationVisible:false})
       }
       
     }
@@ -67,7 +67,7 @@ export default class Faq extends React.Component{
         this.setState({isPaymentVisible: false})
       }
       else{
-        this.setState({isPaymentVisible: true})
+        this.setState({isRegisterVisible: false,isAdvanceVisible: false,isSeatVisible:false,isBookVisible:false,isTicketVisible:false,isPaymentVisible:true,isCancellationVisible:false})
       }
       
     }
@@ -77,7 +77,7 @@ export default class Faq extends React.Component{
         this.setState({isCancellationVisible: false})
       }
       else{
-        this.setState({isCancellationVisible: true})
+        this.setState({isRegisterVisible: false,isAdvanceVisible: false,isSeatVisible:false,isBookVisible:false,isTicketVisible:false,isPaymentVisible:false,isCancellationVisible:true})
       }
       
     }
