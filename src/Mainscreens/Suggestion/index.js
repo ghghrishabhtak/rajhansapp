@@ -3,12 +3,10 @@ import {View,Text,TouchableOpacity,TextInput,AsyncStorage} from 'react-native';
 import styles from './Styles';
 import colors from '../../Config/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-
-export default class Feedback extends React.Component{
+export default class Suggestion extends React.Component{
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: 'Feedback',
-        drawerLabel: 'Feedback',
+        headerTitle: 'Movie Suggestion',
+        drawerLabel: 'Movie Suggestion',
         headerTintColor: colors.white,
         headerStyle: {
           backgroundColor: colors.blue,
@@ -20,7 +18,7 @@ export default class Feedback extends React.Component{
           </TouchableOpacity>
         ),
       })
-    state = { mail: '', Feedback: '' }
+    state = { mail: '', suggestion: '' }
     componentWillMount =()=>{
         AsyncStorage.getItem('USERNAME').then(getemail=>{
            this.setState({
@@ -32,7 +30,7 @@ export default class Feedback extends React.Component{
     render(){
         return(
           <View style = {styles.container}>
-              <Text style = {styles.txt}>We Would Love To Hear From You</Text>
+              <Text style = {styles.txt}>We Would Love To Hear Movie Suggestion From You</Text>
               <TextInput
               style = { styles.useremail }
               value = {this.state.mail}
@@ -40,9 +38,9 @@ export default class Feedback extends React.Component{
               ></TextInput>
               <TextInput
               style = { styles.feedbackinput }
-              placeholder = 'Feedback'
+              placeholder = 'suggestion'
               multiline = { true }
-              onChangeText= {text=>this.setState({ Feedback: text })}
+              onChangeText= {text=>this.setState({ suggestion: text })}
               ></TextInput>
               <TouchableOpacity>
               <View style={ styles.sendbtn }>

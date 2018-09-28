@@ -4,6 +4,40 @@ import Icon from "react-native-vector-icons/Ionicons";
 import colors from '../Config/Colors'
 
 export default class MyDrawer extends React.Component {
+    state= { route: [] }
+    componentWillMount() {
+
+        AsyncStorage.getItem('USERNAME')
+            .then(usertype => {
+                console.log(usertype)
+                if( usertype === ''||usertype === null ){
+                    this.setState({
+                        route: [
+                            { icon: 'md-add', label: 'Hiring of Hall', key: 'Hiring' },
+                            { icon: 'md-contacts', label: 'About us', key: 'About_Us' },
+                            { icon: 'md-alert', label: 'FAQ', key: 'Faq' },
+                            { icon: 'md-log-in', label: 'Login', key: 'Login' },
+                            
+                        ]
+                    })
+                } else {
+                    this.setState({
+                        route: [
+                            { icon: 'md-home', label: 'Home', key: 'Home' },
+                            { icon: 'md-home', label: 'Personal Info', key: 'Personal' },
+                            { icon: 'md-add', label: 'Hiring of Hall', key: 'Hiring' },
+                            { icon: 'md-film', label: 'Movie Suggestion', key: 'Suggestion' },
+                            { icon: 'ios-paper', label: 'Feedback', key: 'Feedback' },
+                            { icon: 'md-contacts', label: 'About us', key: 'About_Us' },
+                            { icon: 'md-alert', label: 'FAQ', key: 'Faq' },
+                            { label: 'Logout', key: 'Login', icon: 'md-log-out' },
+                        ]
+                    })
+                }
+
+            })
+    }
+
 
     renderDrawerItem = (route) => {
 
@@ -17,22 +51,21 @@ export default class MyDrawer extends React.Component {
             </TouchableOpacity>
         )
     }
+    
 
     render() {
 
         return (
-            <ScrollView >
+            <ScrollView>
+                <View style = {
+                    styles.menustyle
+                }>
                 <View style={styles.bluebox}>
                             <Image source={require('../Images/appname.png')} style={styles.ImageStyle} />
                     </View>
-                <View style = {
-                    styles.menustyle
-                }> 
-                    {this.renderDrawerItem({ icon: 'ios-contacts', label: 'Hiring of Hall', key: 'Hiring' })}
-                    {this.renderDrawerItem({ icon: 'md-time', label: 'About us', key: 'About_Us' })}
-                    {this.renderDrawerItem({ icon: 'md-calendar', label: 'FAQ', key: 'Faq' })}
-                    {this.renderDrawerItem({ icon: 'md-home', label: 'Login', key: 'Login' })}
-
+                    {this.state.route.map(route => <View key={route.key}>
+                        {this.renderDrawerItem(route)}</View>)}
+                    
                 </View>
             </ScrollView>
         )

@@ -1,11 +1,20 @@
 import React from 'react';
-import {View,Text, Image, StatusBar} from 'react-native';
+import {View,Text, Image, StatusBar,AsyncStorage,Alert} from 'react-native';
 import styles from './styles';
 
 export default class splash extends React.Component{
     componentWillMount = () =>{
         setTimeout(()=>{
-            this.props.navigation.navigate('App')
+            AsyncStorage.getItem('USERNAME').then(userget=>{
+                if( userget === ''||userget === null ){
+                    this.props.navigation.navigate('App')
+                }
+                else{
+                    this.props.navigation.navigate('Main')
+                }
+                
+            })
+            
         },3000)
     }
     render(){

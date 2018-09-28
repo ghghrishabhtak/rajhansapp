@@ -1,23 +1,36 @@
 import React from 'react';
-import {View,Text, Image,TouchableOpacity, StatusBar, TextInput,AsyncStorage, Alert} from 'react-native';
+import {View,Text, Image,TouchableOpacity, StatusBar, TextInput,AsyncStorage, Alert,ActivityIndicator,ScrollView} from 'react-native';
 import styles from './Styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import  colors  from "../../Config/Colors";
 import Axios from 'axios';
 
 export default class Login extends React.Component{
+    
     forgetpasswords=()=>{
         this.props.navigation.navigate('ForgetScreen')
     }
-
    state = {
-       username: '',
-       password: ''
+       name: '',
+       password: '',
+       loading: false,
    }
    getLogin=()=>{
-       const{ username,password } = this.state;
-        Axios.get('https://lcahgoa.in/index.php/app/userlogin?username='+username+'&password='+password)
+       const{ name,password } = this.state;
+       if(name === ''& password === ''){
+           Alert.alert('Please enter username and password')
+       }
+       else if(name === ''){
+        Alert.alert('Please enter username')
+       }
+       else if(password === ''){
+        Alert.alert('Please enter password')
+       }
+       else{
+        this.setState({loading: true})
+        Axios.get('https://lcahgoa.in/index.php/app/userlogin?username='+name+'&password='+password)
         .then(p =>{
+            this.setState({loading: false})
             console.log(p)
             if(p.data.status == 'True'){
                 AsyncStorage.setItem('USER_ID',p.data.user.user_id)
@@ -27,12 +40,13 @@ export default class Login extends React.Component{
                 AsyncStorage.setItem('USER_PHONE',p.data.user.user_phone)
                 AsyncStorage.setItem('USER_TYPE',p.data.user.user_type)
                 AsyncStorage.setItem('USER_DEPENDENT',p.data.user.user_dependent)
-                this.props.navigation.navigate('Forget');
+                this.props.navigation.navigate('Main');
             }else {
                 Alert.alert('Error', 'Invalid username/password.')
 
             }
         }).catch()
+    }
 }
 
     static navigationOptions = ({ navigation }) => ({
@@ -50,8 +64,18 @@ export default class Login extends React.Component{
         ),
       })
     render(){
+        if (this.state.loading) {
+            return (
+              <View style={{ flex: 1, justifyContent: 'center',backgroundColor: 'transparent' }}>
+                <ActivityIndicator />
+                <StatusBar hidden={true} />
+              </View>
+            )
+          }
         return(
+            
             <View style = {styles.container}>
+            <ScrollView>
             <View style = {styles.loginimageview}>
                 <Image
                 source={require('../../Images/applogo.jpg')}
@@ -61,10 +85,9 @@ export default class Login extends React.Component{
                 <TextInput
                 style = {styles.usernames}
                 placeholder = 'Username'
-                onChangeText = {(username)=>this.setState({username})}
-                value = {this.state.username}
+                onChangeText = {(text)=>this.setState({name:text})}
+                value = {this.state.name}
                 ></TextInput>
-
                 <TextInput
                 style = {styles.passwords}
                 secureTextEntry={true}
@@ -81,10 +104,13 @@ export default class Login extends React.Component{
                 <TouchableOpacity onPress = {this.forgetpasswords}>
                 <Text style = {styles.forgettxt}>Forget Your Password?</Text>
                 </TouchableOpacity>
+                </ScrollView>
                 <View style = {styles.fotterview}>
-                    <Text style = {styles.fottertxt}>Copyright © 2014 in Rajhans. All rights reserved.</Text>
-                </View>
+                    <Text style = {styles.fottertxt}>Copyright © 2018 in Rajhans. All rights reserved.</Text>
+                </View>   
             </View>
+            
+            
         )
     }
 }

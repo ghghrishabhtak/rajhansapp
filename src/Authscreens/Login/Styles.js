@@ -18,13 +18,15 @@ import  colors  from "../../Config/Colors";
          marginTop: 70,
         borderBottomWidth: 1,
         marginLeft: 30,
-        marginRight: 30   
+        marginRight: 30,
+        height: 35   
      },
      passwords:{
         marginTop: 20,
         borderBottomWidth: 1,
         marginLeft: 30,
-        marginRight: 30
+        marginRight: 30,
+        height: 35
 
      },
      btn:{
@@ -32,7 +34,8 @@ import  colors  from "../../Config/Colors";
         backgroundColor: colors.blue,
         padding: 10,
         alignItems: 'center',
-        alignSelf: 'center'   
+        alignSelf: 'center',
+        width: 90   
     },
     forgettxt:{
         textAlign: 'center',

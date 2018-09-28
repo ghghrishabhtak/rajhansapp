@@ -6,7 +6,11 @@ import AboutUsScreen from './Mainscreens/Aboutus';
 import FaqScreen from './Mainscreens/Faq';
 import HiringScreen from './Mainscreens/Hiringofhall'; 
 import Drawer from './Drawer/Drawerscreen';
-import ForgetScreen from './Mainscreens/Forgetpassword'
+import ForgetScreen from './Mainscreens/Forgetpassword';
+import FeedbackScreen from './Mainscreens/Feedback';
+import SuggestionScreen from './Mainscreens/Suggestion';
+import HomeScreen from './Mainscreens/Home';
+import PersonalScreen from './Mainscreens/Personal_info';
 
 
 const LoginStack = createStackNavigator({
@@ -16,7 +20,6 @@ const LoginStack = createStackNavigator({
         ForgetScreen:{
             screen: ForgetScreen
         },
-    
 })
 
 const AboutusStack = createStackNavigator({
@@ -36,23 +39,69 @@ const FaqStack = createStackNavigator({
     },
 })
 
+const FeedbackStack = createStackNavigator({
+    FEEDBACK: {
+        screen: FeedbackScreen,
 
+    },
+})
+
+const SuggestionStack = createStackNavigator({
+    SUGGESTION: {
+        screen: SuggestionScreen,
+
+    },
+})
+
+const HomeStack = createStackNavigator({
+    HOME: {
+        screen: HomeScreen,
+
+    },
+})
+
+
+const PersonalStack = createStackNavigator({
+    PERSONAL: {
+        screen: PersonalScreen,
+
+    },
+})
 const AppStack = createDrawerNavigator(
     {
         Login: LoginStack,
         About_Us:AboutusStack,
         Hiring :HiringStack,
         Faq:FaqStack,
+        Feedback: FeedbackStack,
+        Suggestion: SuggestionStack
     },
     {
         initialRouteName: 'Login',
         contentComponent: Drawer,
     }
 );
+const MainStack = createDrawerNavigator(
+    {
+        About_Us:AboutusStack,
+        Hiring :HiringStack,
+        Faq:FaqStack,
+        Feedback: FeedbackStack,
+        Suggestion: SuggestionStack,
+        Home: HomeStack,
+        Personal: PersonalStack
+    },
+    {
+        initialRouteName: 'Home',
+        contentComponent: Drawer,
+    }
+);
+
 export default createSwitchNavigator(
     {
         AuthLoading: SplashScreen,
         App: AppStack,
+        Main: MainStack
 
     },
     {
