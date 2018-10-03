@@ -22,7 +22,8 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         marginTop: 20,
-        padding: 10
+        padding: 10,
+        
     },
     sendbtn:{
       alignItems: 'center',

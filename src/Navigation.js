@@ -11,6 +11,7 @@ import FeedbackScreen from './Mainscreens/Feedback';
 import SuggestionScreen from './Mainscreens/Suggestion';
 import HomeScreen from './Mainscreens/Home';
 import PersonalScreen from './Mainscreens/Personal_info';
+import PreviewScreen from './Mainscreens/Preview';
 
 
 const LoginStack = createStackNavigator({
@@ -67,6 +68,12 @@ const PersonalStack = createStackNavigator({
 
     },
 })
+const PreviewStack = createStackNavigator({
+    PERSONAL: {
+        screen: PreviewScreen,
+
+    },
+})
 const AppStack = createDrawerNavigator(
     {
         Login: LoginStack,
@@ -89,7 +96,8 @@ const MainStack = createDrawerNavigator(
         Feedback: FeedbackStack,
         Suggestion: SuggestionStack,
         Home: HomeStack,
-        Personal: PersonalStack
+        Personal: PersonalStack,
+        Preview: PreviewStack
     },
     {
         initialRouteName: 'Home',

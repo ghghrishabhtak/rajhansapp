@@ -4,7 +4,7 @@ import colors from '../../Config/Colors'
 export default StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: colors.white
+        backgroundColor: colors.grey
     },
     headtxt:{
         textAlign: 'center',
@@ -14,7 +14,7 @@ export default StyleSheet.create({
 
     },
     showingview:{
-        height:130,
+        height:225,
         marginTop:10,
         backgroundColor: colors.white,
     },
@@ -45,8 +45,7 @@ export default StyleSheet.create({
           textAlign: 'center',
           color: colors.Royal_blue,
           fontSize: 18,
-          marginTop: 90,
-          marginBottom: 20
+          marginTop: 10,
       },
       cmngview:{
           backgroundColor: colors.Royal_blue,
@@ -54,10 +53,14 @@ export default StyleSheet.create({
           bottom: 0,
           left: 0,
           right: 0,
-          height: '40%',
-          marginTop: 20
+          height: '42%',
+          padding: 2
          
       },
+      cmngimg:{
+        height:230,
+        width:285,
+    },
     TopBorder: {
         height: 0.3,
         backgroundColor: 'rgb(255,255,255)',

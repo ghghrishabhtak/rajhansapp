@@ -55,5 +55,9 @@ import  colors  from "../../Config/Colors";
         textAlign: 'center',
         color: colors.white,
         fontSize: 11
+    },
+    cmngimg:{
+        height:300,
+        width:500
     }
  })
