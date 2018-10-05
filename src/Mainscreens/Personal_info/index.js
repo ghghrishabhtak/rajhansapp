@@ -1,10 +1,11 @@
 import React from 'react';
-import { View,Text,TouchableOpacity, AsyncStorage, TextInput, ScrollView,Alert } from 'react-native';
+import { View,Text,TouchableOpacity, AsyncStorage, TextInput, ScrollView,Alert,StatusBar } from 'react-native';
 import styles from './Styles';
 import colors from '../../Config/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PopupDialog, { DialogTitle } from 'react-native-popup-dialog';
 import Axios from 'axios';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class Personal extends React.Component{
     state = { email: '',mobile: '',category: '', department: '', oldpassword: '', newpassword: '', confirmpassword: '', mobile_no: '' }
@@ -109,17 +110,17 @@ export default class Personal extends React.Component{
                     this.popupDialog.show();
                   }}
                >
-                   <View style={ styles.viewpassword }>
-                       <Text style={ styles.btntxt }>Change Password</Text>
-                   </View></TouchableOpacity>
+                   <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.viewpassword}>
+                     <Text style={styles.btntxt}>Change Password</Text>
+                     </LinearGradient></TouchableOpacity>
                    <TouchableOpacity
                                      onPress={() => {
                                         this.popupDial.show();
                                       }}
                    >
-                   <View style={ styles.viewpassword }>
-                       <Text style={ styles.btntxt }>Change Mobile No</Text>
-                   </View>
+                   <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.viewpassword}>
+                     <Text style={styles.btntxt}>Change Mobile no</Text>
+                     </LinearGradient>
                    </TouchableOpacity>
                </View>
                </ScrollView>
@@ -150,11 +151,12 @@ export default class Personal extends React.Component{
                        <TouchableOpacity
                        onPress={ this.getPassword }
                        >
-                       <View style = { styles.passwordsubmitview }>
-                           <Text style = { styles.submittxt }>Submit</Text>
-                       </View>
+                       <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.passwordsubmitview}>
+                     <Text style={styles.submittxt}>Submit</Text>
+                     </LinearGradient>
                        </TouchableOpacity>
                        </ScrollView>
+                       <StatusBar hidden={true} />
                    </View>
                    
                </PopupDialog>
@@ -174,9 +176,9 @@ export default class Personal extends React.Component{
                        <TouchableOpacity
                        onPress={ this.getMobile }
                        >
-                       <View style = { styles.passwordsubmitview }>
-                           <Text style = { styles.submittxt }>Submit</Text>
-                       </View>
+                       <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.passwordsubmitview}>
+                     <Text style={styles.submittxt}>Submit</Text>
+                     </LinearGradient>
                        </TouchableOpacity>
                    </View>
                </PopupDialog>

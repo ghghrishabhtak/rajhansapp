@@ -19,9 +19,8 @@ export default StyleSheet.create({
     },
     feedbackinput:{
         height: 200,
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: 20,
+        borderBottomWidth: 1,
+        marginTop: 1,
         padding: 10
     },
     sendbtn:{

@@ -39,15 +39,16 @@ export default StyleSheet.create({
     viewbtn:{
         marginTop: 30,
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        marginHorizontal: 25
     },
     viewpassword:{
         backgroundColor: colors.Royal_blue,
-        width: 125,
         borderRadius: 3,
-        padding: 3,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
         justifyContent: 'center',
-        padding: 5
+        alignItems: 'center'
     },
     btntxt:{
         color: colors.white

@@ -14,7 +14,7 @@ export default StyleSheet.create({
 
     },
     showingview:{
-        height:225,
+        height:'40%',
         marginTop:10,
         backgroundColor: colors.white,
     },
@@ -54,12 +54,14 @@ export default StyleSheet.create({
           left: 0,
           right: 0,
           height: '42%',
-          padding: 2
+          padding: 2,
+          justifyContent: 'center',
+          alignItems: 'center'
          
       },
       cmngimg:{
         height:230,
-        width:285,
+        width:320,
     },
     TopBorder: {
         height: 0.3,

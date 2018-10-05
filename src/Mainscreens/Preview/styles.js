@@ -11,7 +11,7 @@ export default StyleSheet.create({
         marginTop: 10
     },
     img:{
-        height: 210,
+        height: 240,
         width: 200
     },
     Ratingview:{
@@ -48,7 +48,7 @@ export default StyleSheet.create({
         bottom: 8,
         left: 25,
         right: 25,
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
         
     },
     booktktview:{

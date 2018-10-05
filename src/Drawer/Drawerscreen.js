@@ -25,6 +25,7 @@ export default class MyDrawer extends React.Component {
                         route: [
                             { icon: 'md-home', label: 'Home', key: 'Home' },
                             { icon: 'md-home', label: 'Personal Info', key: 'Personal' },
+                            { icon: 'md-list', label: 'Order History', key: 'OrderHistory' },
                             { icon: 'md-add', label: 'Hiring of Hall', key: 'Hiring' },
                             { icon: 'md-film', label: 'Movie Suggestion', key: 'Suggestion' },
                             { icon: 'ios-paper', label: 'Feedback', key: 'Feedback' },

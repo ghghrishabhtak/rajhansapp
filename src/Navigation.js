@@ -12,6 +12,11 @@ import SuggestionScreen from './Mainscreens/Suggestion';
 import HomeScreen from './Mainscreens/Home';
 import PersonalScreen from './Mainscreens/Personal_info';
 import PreviewScreen from './Mainscreens/Preview';
+import BookScreen from './Mainscreens/Book_ticket';
+import TrailerScreen from './Mainscreens/Trailer';
+import Mapscreen from './Mainscreens/Map';
+import OrderHistoryScreen from './Mainscreens/OrderHistory';
+import CancelorderScreen from './Mainscreens/Cancelorder';
 
 
 const LoginStack = createStackNavigator({
@@ -73,6 +78,28 @@ const PreviewStack = createStackNavigator({
         screen: PreviewScreen,
 
     },
+    TrailerScreen:{
+        screen: TrailerScreen
+    },
+})
+
+const BookStack = createStackNavigator({
+    BOOK: {
+        screen: BookScreen,
+    },
+
+    
+    MapScreen:{
+        screen: Mapscreen
+    },
+})
+const OrderStack = createStackNavigator({
+    ORDER: {
+        screen: OrderHistoryScreen,
+    },
+    CancelorderScreen:{
+        screen: CancelorderScreen
+    }
 })
 const AppStack = createDrawerNavigator(
     {
@@ -97,7 +124,9 @@ const MainStack = createDrawerNavigator(
         Suggestion: SuggestionStack,
         Home: HomeStack,
         Personal: PersonalStack,
-        Preview: PreviewStack
+        Preview: PreviewStack,
+        Book: BookStack,
+        OrderHistory: OrderStack
     },
     {
         initialRouteName: 'Home',

@@ -4,5 +4,6 @@ export default  colors = {
     red: '#FF0000',
     black: '#000',
     Royal_blue: '#4682B4',
-    grey: '#DCDCDC'
+    grey: '#DCDCDC',
+    green: '#228B22'
 }

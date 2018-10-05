@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,Text,TouchableOpacity,TextInput,AsyncStorage,FlatList,Image,ActivityIndicator,StatusBar} from 'react-native';
+import {View,Text,TouchableOpacity,TextInput,AsyncStorage,FlatList,Image,ActivityIndicator,StatusBar,ScrollView} from 'react-native';
 import styles from './Styles';
 import colors from '../../Config/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -14,7 +14,8 @@ export default class Home extends React.Component{
   genre:'',
   response: [],
   coming_response: '',
-  loading: false
+  loading: false,
+  moviename: ''
 }
   
   componentWillMount=()=>{
@@ -40,6 +41,10 @@ export default class Home extends React.Component{
       this.props.navigation.navigate('Preview')
 
   }
+  onBookGo=()=>{
+    //AsyncStorage.setItem('MOVIE_DATE',JSON.stringify(m_item))
+    this.props.navigation.navigate('MapScreen')
+  }
 
     static navigationOptions = ({ navigation }) => ({
         headerTitle: 'Home',
@@ -55,6 +60,49 @@ export default class Home extends React.Component{
           </TouchableOpacity>
         ),
       })
+
+      renderMovies =  (item) => {
+        const { moviename } = this.state
+        if (moviename==item.event_name) {
+          
+        } else {
+          return(
+            
+            <View style={styles.items}>
+            <View style={styles.rowitems}>
+            
+               <Image style={ styles.img }
+               source={{uri: item.POSTER}}
+               ></Image>
+               <View style = { styles.moviedetail }>
+               <Text style={styles.rowtitle}> {item.event_name}</Text>
+                <Text style={styles.rowendtitle}> Ratings:  {item.RATING}</Text>
+              
+              <Text style={ styles.rowendtitle }>Genre: {item.GENRE}</Text>
+              <View style = {styles.rowitems}>
+                 <TouchableOpacity
+                 onPress= {()=> this.onPreviewGo(item.event_name,item.POSTER,item.RATING,item.GENRE,item.STARCAST,item.DESCRIPTION) }
+                 >
+                   <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.btnpreview}>
+                     <Text style={styles.btntxt}>PREVIEW</Text>
+                   </LinearGradient>
+                   </TouchableOpacity>
+                   <TouchableOpacity
+                   onPress={()=> this.onBookGo() }
+                   >
+                   <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.btnpreview}>
+                     <Text style={styles.btntxt}>BOOK</Text>
+                     </LinearGradient>
+                   </TouchableOpacity>
+               </View>
+               </View>
+
+            </View>
+          </View>
+          )
+        }
+      }
+
     render(){
       if (this.state.loading) {
         return (
@@ -66,6 +114,7 @@ export default class Home extends React.Component{
       }
         const { response,coming_response }= this.state;
         return(
+          
             <View style={ styles.container }>
                <Text style = { styles.headtxt }>Now Showing...</Text>
                <View style = {styles.showingview}>
@@ -73,34 +122,7 @@ export default class Home extends React.Component{
                 data={response}
                 keyExtractor={item => item}
                 renderItem={({ item }) => (
-                    <View style={styles.items}>
-                      <View style={styles.rowitems}>
-                         <Image style={ styles.img }
-                         source={{uri: item.POSTER}}
-                         ></Image>
-                         <View style = { styles.moviedetail }>
-                         <Text style={styles.rowtitle}> {item.event_name}</Text>
-                          <Text style={styles.rowendtitle}> Ratings:  {item.RATING}</Text>
-                        
-                        <Text style={ styles.rowendtitle }>Genre: {item.GENRE}</Text>
-                        <View style = {styles.rowitems}>
-                           <TouchableOpacity
-                           onPress= {()=> this.onPreviewGo(item.event_name,item.POSTER,item.RATING,item.GENRE,item.STARCAST,item.DESCRIPTION) }
-                           >
-                             <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.btnpreview}>
-                               <Text style={styles.btntxt}>PREVIEW</Text>
-                             </LinearGradient>
-                             </TouchableOpacity>
-                             <TouchableOpacity>
-                             <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.btnpreview}>
-                               <Text style={styles.btntxt}>BOOK</Text>
-                               </LinearGradient>
-                             </TouchableOpacity>
-                         </View>
-                         </View>
-
-                      </View>
-                    </View>
+                   this.renderMovies(item)
                 )}
               />
                </View>
@@ -110,8 +132,8 @@ export default class Home extends React.Component{
                 style={ styles.cmngimg }
                 source={{ uri:coming_response }}
                 ></Image> 
-               
                </View>
+               <StatusBar hidden={true} />
             </View>
         )
     }

@@ -50,8 +50,8 @@ export default class Preview extends React.Component{
 
      }
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: 'Home',
-        drawerLabel: 'Home',
+        headerTitle: 'Preview',
+        drawerLabel: 'Preview',
         headerTintColor: colors.white,
         headerStyle: {
           backgroundColor: colors.blue 
@@ -63,11 +63,14 @@ export default class Preview extends React.Component{
           </TouchableOpacity>
         ),
       })
+      onTrailerGo =()=>{
+          this.props.navigation.navigate('TrailerScreen')
+      }
     render(){
-       
-        
         return(
+            
             <View style={ styles.container }>
+            <ScrollView>
                <View style = { styles.imgview }>
                    <Image
                    source={{ uri:this.state.poster }}
@@ -87,15 +90,24 @@ export default class Preview extends React.Component{
                        <Text style={ styles.txtgenre }>{ this.state.genre }</Text>
             </View>
             <Text style={ styles.txtintro }>{ this.state.description }</Text>
+            </ScrollView>
+            
             <View style={ styles.btnview }>
             <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.booktktview}>
                      <Text style={ styles.btntxt }>Book Ticket</Text>
+                     
                      </LinearGradient>
+                     <TouchableOpacity
+                     onPress={ this.onTrailerGo }
+                     >
                      <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.booktktview}>
                      <Text style={ styles.btntxt }>Watch Trailer</Text>
-                     </LinearGradient>
+                     </LinearGradient></TouchableOpacity>
+                     
             </View>
+            <StatusBar hidden={true} />
             </View>
+            
         )
     }
 }

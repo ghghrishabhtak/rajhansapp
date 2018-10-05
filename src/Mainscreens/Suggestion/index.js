@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,Text,TouchableOpacity,TextInput,AsyncStorage,Alert} from 'react-native';
+import {View,Text,TouchableOpacity,TextInput,AsyncStorage,Alert,ScrollView,StatusBar} from 'react-native';
 import styles from './Styles';
 import colors from '../../Config/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -38,7 +38,7 @@ export default class Suggestion extends React.Component{
            Axios.get('https://lcahgoa.in/index.php/app/moviesuggestion?email_id='+mail+'&comments='+suggestion).then(p=>{
                console.log(p)
                if(p.data.status == 'True'){
-                   Alert.alert('Feedback sent successfully')
+                   Alert.alert('Suggestion sent successfully')
                    this.setState({
                   suggestion: ''     
                 })
@@ -50,7 +50,9 @@ export default class Suggestion extends React.Component{
     }
     render(){
         return(
+            
           <View style = {styles.container}>
+          <ScrollView>
               <Text style = {styles.txt}>We Would Love To Hear Movie Suggestion From You</Text>
               <TextInput
               style = { styles.useremail }
@@ -71,7 +73,10 @@ export default class Suggestion extends React.Component{
                   <Text style={ styles.btntxt }>SEND</Text>
               </View>
               </TouchableOpacity>
+              </ScrollView>
+              <StatusBar hidden={true} />
           </View>
+          
         )
     }
 }
