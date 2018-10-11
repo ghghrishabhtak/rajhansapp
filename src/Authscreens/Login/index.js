@@ -4,6 +4,7 @@ import styles from './Styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import  colors  from "../../Config/Colors";
 import Axios from 'axios';
+import Loading from '../../Components/Loadings'
 
 export default class Login extends React.Component{
     
@@ -66,10 +67,7 @@ export default class Login extends React.Component{
     render(){
         if (this.state.loading) {
             return (
-              <View style={{ flex: 1, justifyContent: 'center',backgroundColor: 'transparent' }}>
-                <ActivityIndicator />
-                <StatusBar hidden={true} />
-              </View>
+                <Loading/>
             )
           }
         return(

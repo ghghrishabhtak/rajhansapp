@@ -74,7 +74,7 @@ const PersonalStack = createStackNavigator({
     },
 })
 const PreviewStack = createStackNavigator({
-    PERSONAL: {
+    PREVIEW: {
         screen: PreviewScreen,
 
     },

@@ -18,5 +18,6 @@ export default StyleSheet.create({
     seattxtstyle:{
         marginLeft: 3,
         marginRight: 3
-    }
+    },
+   
 })

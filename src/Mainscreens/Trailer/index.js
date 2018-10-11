@@ -4,6 +4,16 @@ import styles from './Styles';
 import colors from '../../Config/Colors'
 
 export default class Trailer extends React.Component{
+    state={
+        url: ''
+    }
+    componentWillMount=()=>{
+        AsyncStorage.getItem('VIDEO').then(urll=>{
+            this.setState({
+                url: urll
+            })
+        })
+    }
     static navigationOptions = {
         title: 'Trailer',
         headerTintColor: colors.white,
@@ -11,11 +21,22 @@ export default class Trailer extends React.Component{
           backgroundColor: colors.blue,
         }
       };
+    
+
     render(){
+        const { url } = this.state
+        if(url == ''|| url == null){
+            return(
+                <View style={ styles.container }>
+                    <Text>Trailor is not found</Text>
+                    <StatusBar hidden={true} />
+                </View>
+            )
+        }
         return(
             <View style={ styles.container }>
                 <WebView
-                source={{uri:'https://www.youtube.com/embed/kWGU9POrbHE'}}
+                source={{uri:url}}
                 >
                 </WebView>
                 <StatusBar hidden={true} />

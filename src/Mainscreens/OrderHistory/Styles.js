@@ -54,6 +54,7 @@ export default StyleSheet.create({
      lineview:{
         borderBottomColor: colors.grey,
         borderBottomWidth: 1,
+        marginTop: 6
     },
     txtfailure:{
         textAlign: 'center',

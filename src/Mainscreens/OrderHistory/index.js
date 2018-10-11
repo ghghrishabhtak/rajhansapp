@@ -1,13 +1,18 @@
 import React from 'react';
-import { View,Text,FlatList,AsyncStorage,TouchableOpacity,StatusBar } from 'react-native';
+import { View,Text,FlatList,AsyncStorage,TouchableOpacity,StatusBar,ActivityIndicator } from 'react-native';
 import styles from './Styles';
 import Axios from 'axios';
 import colors from '../../Config/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
+import Loading from '../../Components/Loadings';
 
 export default class History extends React.Component{
-    state={ response: [], userid: '' }
+    state={ 
+        response: [], 
+        userid: '',
+        loading: false
+     }
     static navigationOptions = ({ navigation }) => ({
         headerTitle: 'Order History',
         drawerLabel: 'Order History',
@@ -23,8 +28,10 @@ export default class History extends React.Component{
         ),
       })
     componentWillMount=()=>{
+        this.setState({loading: true})
         AsyncStorage.getItem('USER_ID').then(uid=>{
             Axios.get('https://lcahgoa.in/index.php/app/personalinfo?user_id='+uid).then(p=>{
+                this.setState({loading: false})
            console.log(p.data)
            this.setState({
                response: p.data
@@ -63,17 +70,23 @@ export default class History extends React.Component{
       }
     }
     render(){
-        const { response } = this.state
+        const { response,loading } = this.state
+        if(loading){
+            return (
+                <Loading/>
+              )
+            }
         return(
             <View style={ styles.container }>
+            <View style={{ marginTop: 5 }}>
                <FlatList
                data= { response }
-               keyExtractor={item => item}
+               keyExtractor={item => item.order_id}
                renderItem={({ item })=>(
                    <View style={ styles.listview }>
                      <View style={ styles.orderview }>
                          <Text style={ styles.txtorder }>Order No {item.order_id}</Text>
-                         <Text style={ styles.txtrate }>{item.order_total_price}</Text>
+                         <Text style={ styles.txtrate }>₹ {item.order_total_price}</Text>
                      </View>
                      <View style={ styles.dateview }>
                         <View>
@@ -94,6 +107,7 @@ export default class History extends React.Component{
             
             }
                ></FlatList>
+               </View>
                <StatusBar hidden={true} />
             </View>
         )

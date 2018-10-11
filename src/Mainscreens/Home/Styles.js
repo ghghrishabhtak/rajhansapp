@@ -55,20 +55,23 @@ export default StyleSheet.create({
           right: 0,
           height: '42%',
           padding: 2,
-          justifyContent: 'center',
-          alignItems: 'center'
+          //justifyContent: 'center',
+          //alignItems: 'center'
          
       },
       cmngimg:{
-        height:230,
-        width:320,
+        height:240,
+        width:300,
     },
     TopBorder: {
         height: 0.3,
         backgroundColor: 'rgb(255,255,255)',
         marginTop: 28,
         },
-        rowitems: { flexDirection: 'row' },
+        rowitems: { 
+         flexDirection: 'row',
+         marginLeft:5,
+         },
         rowtitle: {
         fontFamily: 'SFProText-Regular',
         fontSize: 22,
@@ -77,6 +80,7 @@ export default StyleSheet.create({
         rowendtitle: {
         fontFamily: 'SFProText-Medium',
         fontSize: 17,
+        alignSelf: 'flex-start',
         },
         priceview: {
         width: 101,
@@ -105,4 +109,9 @@ export default StyleSheet.create({
         borderColor: colors.blue,
         padding: 1
         },
+        ratingview:{
+            flexDirection: 'row',
+            marginTop: 5,
+            marginLeft: 3
+        }
 })

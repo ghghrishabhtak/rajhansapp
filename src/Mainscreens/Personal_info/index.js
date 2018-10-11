@@ -7,8 +7,9 @@ import PopupDialog, { DialogTitle } from 'react-native-popup-dialog';
 import Axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
 
+
 export default class Personal extends React.Component{
-    state = { email: '',mobile: '',category: '', department: '', oldpassword: '', newpassword: '', confirmpassword: '', mobile_no: '' }
+    state = { email: '',mobile: '',category: '', department: '', oldpassword: '', newpassword: '', confirmpassword: '', mobile_no: '',  }
 
     componentWillMount =()=>{
        AsyncStorage.getItem('USERNAME').then(mail=>{
@@ -69,12 +70,12 @@ export default class Personal extends React.Component{
           }
       }
       getMobile=()=>{
-          const { mobile, email } = this.state;
-          if( mobile === '' ){
+          const { mobile_no, email } = this.state;
+          if( mobile_no === '' ){
               Alert.alert('Please enter mobile fields')
           }
           else{
-            Axios.get('https://lcahgoa.in/index.php/app/updateuserinfo?username='+email+'&profilemobile='+mobile).then(p=>{
+            Axios.get('https://lcahgoa.in/index.php/app/updateuserinfo?username='+email+'&profilemobile='+mobile_no).then(p=>{
                 console.log(p)
                 if(p.data.status === 'True'){
                     Alert.alert('Mobile number updated successfully')
@@ -135,16 +136,19 @@ export default class Personal extends React.Component{
                     <ScrollView>
                        <TextInput
                        placeholder= 'Enter old Password'
+                       secureTextEntry={true}
                        style= { styles.oldpasstxtinput }
                        onChangeText = {(oldpassword)=>this.setState({oldpassword})}
                        ></TextInput>
                        <TextInput
                        placeholder= 'Enter new Password'
+                       secureTextEntry={true}
                        style= { styles.oldpasstxtinput }
                        onChangeText = {(newpassword)=>this.setState({newpassword})}
                        ></TextInput>
                        <TextInput
                        placeholder= 'Enter confirm Password'
+                       secureTextEntry={true}
                        style= { styles.oldpasstxtinput }
                        onChangeText = {(confirmpassword)=>this.setState({confirmpassword})}
                        ></TextInput>
@@ -171,7 +175,7 @@ export default class Personal extends React.Component{
                     <TextInput
                        placeholder= 'Enter Mobile no'
                        style= { styles.oldpasstxtinput }
-                       onChangeText = {(confirmpassword)=>this.setState({confirmpassword})}
+                       onChangeText = {(mobile_no)=>this.setState({mobile_no})}
                        ></TextInput>
                        <TouchableOpacity
                        onPress={ this.getMobile }

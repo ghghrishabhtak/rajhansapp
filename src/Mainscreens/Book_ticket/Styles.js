@@ -15,7 +15,8 @@ export default StyleSheet.create({
     },
     txt:{
       color: colors.blue,
-      fontSize: 15
+      fontSize: 15,
+      margin: 10
     },
     horlistview:{
         margin: 10,

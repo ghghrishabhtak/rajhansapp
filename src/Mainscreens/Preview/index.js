@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,TouchableOpacity, AsyncStorage, TextInput, ScrollView, Image } from 'react-native';
+import { View,Text,TouchableOpacity, AsyncStorage, TextInput, ScrollView, Image,StatusBar } from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import colors from '../../Config/Colors';
@@ -12,26 +12,13 @@ export default class Preview extends React.Component{
          rating: '',
          starcast: '',
          genre: '',
+         dataarray:[],
          description: '',
          key: ['MOVIE_NAME','MOVIE_POSTER','MOVIE_RATING','MOVIE_GENRE','MOVIE_STARCAST','MOVIE_DESCRIPTION'] 
         }
      componentWillMount= async ()=>{
-         
-        // const itemposter = this.props.navigation.getParam('poster');
-        // const itemname = this.props.navigation.getParam('name');
-        // const itemrating = this.props.navigation.getParam('rating');
-        // const itemgenre = this.props.navigation.getParam('genre');
-        // const itemcast = this.props.navigation.getParam('starcast');
-        // const itemdesciption = this.props.navigation.getParam('description');
-        // console.log('hello'+itemgenre)
-        // this.setState({
-        //     name: itemname,
-        //     poster: itemposter,
-        //     rating: itemrating,
-        //     genre: itemgenre,
-        //     starcast: itemcast,
-        //     description: itemdesciption
-        // }) 
+        const { navigation } = this.props;
+        const movies=navigation.getParam('moviearray',null);
          const moviename=await AsyncStorage.getItem('MOVIE_NAME')
          console.log(moviename)
          const movieposter=await AsyncStorage.getItem('MOVIE_POSTER')
@@ -45,13 +32,14 @@ export default class Preview extends React.Component{
             rating:movierating,
             starcast:moviecast,
             description:moviedescription,
-            genre:moviegenre
+            genre:moviegenre,
+            dataarray: movies
          })
 
      }
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: 'Preview',
-        drawerLabel: 'Preview',
+        headerTitle: navigation.getParam('otherParam'),
+        drawerLabel: navigation.getParam('otherParam'),
         headerTintColor: colors.white,
         headerStyle: {
           backgroundColor: colors.blue 
@@ -66,11 +54,94 @@ export default class Preview extends React.Component{
       onTrailerGo =()=>{
           this.props.navigation.navigate('TrailerScreen')
       }
+      onBookGo =()=>{
+        this.props.navigation.navigate('BOOK',{
+            moviename: this.state.name,
+            moviearray: this.state.dataarray,
+           });
+      }
+      movRating = (rat)=>{
+        if(rat === '*****'){
+            return(
+              <View style={ styles.ratingview }>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              </View>
+            )
+          }
+          else if(rat === '****'){
+            return(
+              <View style={ styles.ratingview }>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              </View>
+            )
+          }
+          else if(rat === '***'){
+            return(
+              <View style={ styles.ratingview }>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              </View>
+            )
+          }
+          
+          else if(rat === '**'){
+            return(
+              <View style={ styles.ratingview }>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              </View>
+            )
+          }
+         else if(rat === '*'){
+            return(
+              <View style={ styles.ratingview }>
+              <Image
+              source={require('../../Images/star.png')}
+              ></Image>
+              </View>
+            )
+          }
+      }
+
     render(){
         return(
-            
             <View style={ styles.container }>
-            <ScrollView>
                <View style = { styles.imgview }>
                    <Image
                    source={{ uri:this.state.poster }}
@@ -79,7 +150,7 @@ export default class Preview extends React.Component{
                </View>
                <View style={ styles.Ratingview }>
                        <Text style={ styles.txtsame }>Ratings:</Text>
-                       <Text style={ styles.txtratings }>{this.state.rating}</Text>
+                       {this.movRating(this.state.rating)}
                    </View>
                    <View style={ styles.Ratingview }>
                        <Text style={ styles.txtsame }>Star cast:</Text>
@@ -89,14 +160,16 @@ export default class Preview extends React.Component{
                        <Text style={ styles.txtsame }>Genre:</Text>
                        <Text style={ styles.txtgenre }>{ this.state.genre }</Text>
             </View>
-            <Text style={ styles.txtintro }>{ this.state.description }</Text>
-            </ScrollView>
-            
+            <View><Text style={ styles.txtintro }>{ this.state.description }</Text></View>
             <View style={ styles.btnview }>
+            <TouchableOpacity
+            onPress={ this.onBookGo }
+            >
             <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.booktktview}>
                      <Text style={ styles.btntxt }>Book Ticket</Text>
                      
                      </LinearGradient>
+                     </TouchableOpacity>
                      <TouchableOpacity
                      onPress={ this.onTrailerGo }
                      >
@@ -106,6 +179,7 @@ export default class Preview extends React.Component{
                      
             </View>
             <StatusBar hidden={true} />
+            
             </View>
             
         )

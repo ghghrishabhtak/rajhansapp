@@ -45,6 +45,7 @@ export default StyleSheet.create({
     btnview:{
         flexDirection: 'row',
         position: 'absolute',
+        flex: 0.1,
         bottom: 8,
         left: 25,
         right: 25,
@@ -62,5 +63,10 @@ export default StyleSheet.create({
     },
     btntxt:{
         color: colors.white
+    },
+    ratingview:{
+        flexDirection: 'row',
+        marginTop: 10,
+        marginLeft: 5
     }
 })

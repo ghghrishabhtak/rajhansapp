@@ -48,7 +48,7 @@ export default class MyDrawer extends React.Component {
         return (
             <TouchableOpacity onPress={onpress} style={{ flexDirection: 'row', padding: 8, marginLeft: 10, marginRight: 10 }}>
                 <Icon name={route.icon} size={30} />
-                <Text style={{ padding: 8, marginLeft: 10, marginRight: 10, fontSize: 16, color: colors.blue }}>{route.label}</Text>
+                <Text style={{ padding: 6, marginLeft: 10, marginRight: 10, fontSize: 16, color: colors.blue }}>{route.label}</Text>
             </TouchableOpacity>
         )
     }

@@ -5,6 +5,8 @@ import colors from '../../Config/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import Axios from 'axios';
+import Loading from '../../Components/Loadings';
+import groupBy from 'lodash.groupby';
 
 export default class Home extends React.Component{
   state = { 
@@ -13,7 +15,8 @@ export default class Home extends React.Component{
   rating:'', 
   genre:'',
   response: [],
-  coming_response: '',
+  dataarray:[],
+  coming_response: [],
   loading: false,
   moviename: ''
 }
@@ -22,15 +25,36 @@ export default class Home extends React.Component{
     this.setState({loading: true})
      Axios.get('https://lcahgoa.in/index.php/app/event/').then(p=>{
       this.setState({loading: false})
-        console.log(p.data.comingsoon)
+        //  console.log(groupBy(p.data.allevents,item=>item.event_name))
+        //  let groupData=groupBy(p.data.allevents,item=>item.event_name);
+      
+        let eventname=[];
+        let eventarray=[];
+        this.setState({dataarray : p.data.allevents});
+        for (let i = 0; i < p.data.allevents.length; i++) {
+
+          var found =  eventname.some(function (en) {
+                return en ===p.data.allevents[i].event_name;
+             });
+       
+
+            if (!found) {
+              eventarray.push(p.data.allevents[i])
+              eventname.push(p.data.allevents[i].event_name)
+              } else {
+             
+             }
+         
+         }
+
         this.setState({
-          response: p.data.allevents,
-          coming_response: p.data.comingsoon[0].url,
+          response:eventarray,
+          coming_response: p.data.comingsoon,
         })
 
      })
   }
-  onPreviewGo =(movie_name,movie_poster,movie_rating,movie_genre,movie_starcast,movie_description)=>{
+  onPreviewGo =(movie_name,movie_poster,movie_rating,movie_genre,movie_starcast,movie_description,movie_video)=>{
     console.log(movie_name)
     AsyncStorage.setItem('MOVIE_NAME',movie_name)
     AsyncStorage.setItem('MOVIE_POSTER',movie_poster)
@@ -38,17 +62,21 @@ export default class Home extends React.Component{
     AsyncStorage.setItem('MOVIE_GENRE',movie_genre)
     AsyncStorage.setItem('MOVIE_STARCAST',movie_starcast)
     AsyncStorage.setItem('MOVIE_DESCRIPTION',movie_description)
-      this.props.navigation.navigate('Preview')
+    AsyncStorage.setItem('VIDEO',movie_video)
+      this.props.navigation.navigate('PREVIEW',{otherParam: movie_name,
+                                       moviearray: this.state.dataarray,})
 
   }
-  onBookGo=()=>{
-    //AsyncStorage.setItem('MOVIE_DATE',JSON.stringify(m_item))
-    this.props.navigation.navigate('MapScreen')
+  onBookGo = (movie_name) => {
+    this.props.navigation.navigate('BOOK',{
+                                     moviename: movie_name,
+                                     moviearray: this.state.dataarray,
+                                    });
   }
 
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: 'Home',
-        drawerLabel: 'Home',
+        headerTitle: 'Rajhans',
+        drawerLabel: 'Rajhans',
         headerTintColor: colors.white,
         headerStyle: {
           backgroundColor: colors.blue,
@@ -60,35 +88,111 @@ export default class Home extends React.Component{
           </TouchableOpacity>
         ),
       })
+      showRating = (itemrating) =>{
+        if(itemrating === '*****'){
+          return(
+            <View style={ styles.ratingview }>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            </View>
+          )
+        }
+        else if(itemrating === '****'){
+          return(
+            <View style={ styles.ratingview }>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            </View>
+          )
+        }
+        else if(itemrating === '***'){
+          return(
+            <View style={ styles.ratingview }>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            </View>
+          )
+        }
+        else if(itemrating === '**'){
+          return(
+            <View style={ styles.ratingview }>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            </View>
+          )
+        }
+        else if(itemrating === '*'){
+          return(
+            <View style={ styles.ratingview }>
+            <Image
+            source={require('../../Images/star.png')}
+            ></Image>
+            </View>
+          )
+        }
+      }
 
       renderMovies =  (item) => {
         const { moviename } = this.state
-        if (moviename==item.event_name) {
-          
+        if (moviename==item.event_name) { 
         } else {
           return(
-            
             <View style={styles.items}>
             <View style={styles.rowitems}>
-            
                <Image style={ styles.img }
                source={{uri: item.POSTER}}
                ></Image>
                <View style = { styles.moviedetail }>
                <Text style={styles.rowtitle}> {item.event_name}</Text>
-                <Text style={styles.rowendtitle}> Ratings:  {item.RATING}</Text>
-              
-              <Text style={ styles.rowendtitle }>Genre: {item.GENRE}</Text>
+               <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.rowendtitle}> Ratings:</Text>
+                {this.showRating(item.RATING)}
+                </View>
+              <Text style={ styles.rowendtitle }> Genre: {item.GENRE}</Text>
               <View style = {styles.rowitems}>
                  <TouchableOpacity
-                 onPress= {()=> this.onPreviewGo(item.event_name,item.POSTER,item.RATING,item.GENRE,item.STARCAST,item.DESCRIPTION) }
+                 onPress= {()=> this.onPreviewGo(item.event_name,item.POSTER,item.RATING,item.GENRE,item.STARCAST,item.DESCRIPTION,item.VIDEO) }
                  >
                    <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.btnpreview}>
                      <Text style={styles.btntxt}>PREVIEW</Text>
                    </LinearGradient>
                    </TouchableOpacity>
                    <TouchableOpacity
-                   onPress={()=> this.onBookGo() }
+                   onPress={()=> this.onBookGo(item.event_name) }
                    >
                    <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.btnpreview}>
                      <Text style={styles.btntxt}>BOOK</Text>
@@ -96,42 +200,71 @@ export default class Home extends React.Component{
                    </TouchableOpacity>
                </View>
                </View>
-
             </View>
           </View>
           )
         }
       }
+      showMov = (res) =>{
+         if(res.length == ''|| res.length == null){
+           return(
+             <View style = {{ justifyContent: 'center', alignItems: 'center', height:'100%' }}>
+             <Text style = {{ color: colors.black }}>Right Now No Movies Available</Text>
+             </View>
+           )
+         }
+         else{
+          return(
+            <FlatList
+          data={res}
+          keyExtractor={item => item.event_id}
+          renderItem={({ item }) => (
+             this.renderMovies(item)
+          )}
+        />
+          )
+         }
+      }
+
 
     render(){
-      if (this.state.loading) {
+      const { response,coming_response,loading }= this.state;
+      if (loading) {
         return (
-          <View style={{ flex: 1, justifyContent: 'center',backgroundColor: 'transparent' }}>
-            <ActivityIndicator />
-            <StatusBar hidden={true} />
-          </View>
+          <Loading/>
         )
       }
-        const { response,coming_response }= this.state;
+        
         return(
           
             <View style={ styles.container }>
                <Text style = { styles.headtxt }>Now Showing...</Text>
                <View style = {styles.showingview}>
-               <FlatList
+               { this.showMov(response) }
+               {/* <FlatList
                 data={response}
-                keyExtractor={item => item}
+                keyExtractor={item => item.event_id}
                 renderItem={({ item }) => (
                    this.renderMovies(item)
                 )}
-              />
+              /> */}
                </View>
                <Text style={styles.txtcmng}>Coming Soon...</Text>
                <View style={ styles.cmngview }>
-                               <Image
-                style={ styles.cmngimg }
-                source={{ uri:coming_response }}
-                ></Image> 
+               <ScrollView>
+               <FlatList
+                data={coming_response}
+                horizontal= {true}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => (
+                  <Image
+                  style={ styles.cmngimg }
+                  source={{ uri:item.url }}
+                  ></Image> 
+                )}
+              />
+               </ScrollView>
+                          
                </View>
                <StatusBar hidden={true} />
             </View>
