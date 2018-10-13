@@ -17,6 +17,8 @@ import TrailerScreen from './Mainscreens/Trailer';
 import Mapscreen from './Mainscreens/Map';
 import OrderHistoryScreen from './Mainscreens/OrderHistory';
 import CancelorderScreen from './Mainscreens/Cancelorder';
+import OrderPageScreen from './Mainscreens/OrderPage';
+import ConfirmBookingScreen from './Mainscreens/ConfirmBooking';
 
 
 const LoginStack = createStackNavigator({
@@ -64,6 +66,17 @@ const HomeStack = createStackNavigator({
         screen: HomeScreen,
 
     },
+    Order: {
+        screen: OrderPageScreen,
+
+    },
+    confirmbook: {
+        screen: ConfirmBookingScreen,
+
+    },
+  
+},{
+    initialRouteName: 'HOME'
 })
 
 
@@ -126,7 +139,8 @@ const MainStack = createDrawerNavigator(
         Personal: PersonalStack,
         Preview: PreviewStack,
         Book: BookStack,
-        OrderHistory: OrderStack
+        OrderHistory: OrderStack,
+        confirmbook: ConfirmBookingScreen
     },
     {
         initialRouteName: 'Home',
@@ -138,8 +152,7 @@ export default createSwitchNavigator(
     {
         AuthLoading: SplashScreen,
         App: AppStack,
-        Main: MainStack
-
+        Main: MainStack,
     },
     {
         initialRouteName: 'AuthLoading',

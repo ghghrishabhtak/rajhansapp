@@ -26,6 +26,7 @@ export default class Hiring extends React.Component{
                <WebView
         source={{uri: 'https://lcahgoa.in/index.php/app/hiringforhall/'}}
         style={{marginTop: 10}}
+        startInLoadingState
       />
                <StatusBar hidden={true} />
             </View>

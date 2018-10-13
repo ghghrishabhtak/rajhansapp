@@ -44,12 +44,8 @@ export default StyleSheet.create({
     },
     btnview:{
         flexDirection: 'row',
-        position: 'absolute',
-        flex: 0.1,
-        bottom: 8,
-        left: 25,
-        right: 25,
-        justifyContent: 'space-around',
+        marginTop: 50,
+        alignSelf: 'center',
         
     },
     booktktview:{
@@ -59,7 +55,8 @@ export default StyleSheet.create({
         justifyContent: 'center',
         padding: 5,
         width: 145,
-        height: 40
+        height: 40,
+        marginLeft: 5
     },
     btntxt:{
         color: colors.white

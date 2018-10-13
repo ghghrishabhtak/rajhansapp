@@ -99,9 +99,9 @@ export default class Login extends React.Component{
                 <Text style={{color:"#FFF", paddingHorizontal: 10, paddingVertical: 4}}>Login</Text>
                 </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress = {this.forgetpasswords}>
+                {/* <TouchableOpacity onPress = {this.forgetpasswords}> */}
                 <Text style = {styles.forgettxt}>Forget Your Password?</Text>
-                </TouchableOpacity>
+                {/* </TouchableOpacity> */}
                 </ScrollView>
                 <View style = {styles.fotterview}>
                     <Text style = {styles.fottertxt}>Copyright © 2018 in Rajhans. All rights reserved.</Text>

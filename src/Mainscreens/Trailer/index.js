@@ -5,26 +5,27 @@ import colors from '../../Config/Colors'
 
 export default class Trailer extends React.Component{
     state={
-        url: ''
+        url: '',
     }
     componentWillMount=()=>{
         AsyncStorage.getItem('VIDEO').then(urll=>{
+            console.log(urll)
             this.setState({
                 url: urll
             })
         })
     }
-    static navigationOptions = {
-        title: 'Trailer',
+    static navigationOptions = ({ navigation }) => ({
+        title: navigation.getParam('namesparam'),
         headerTintColor: colors.white,
         headerStyle: {
           backgroundColor: colors.blue,
-        }
-      };
+        },
+      });
     
 
     render(){
-        const { url } = this.state
+        const { url } = this.state;
         if(url == ''|| url == null){
             return(
                 <View style={ styles.container }>
@@ -32,9 +33,9 @@ export default class Trailer extends React.Component{
                     <StatusBar hidden={true} />
                 </View>
             )
-        }
+        } else {
         return(
-            <View style={ styles.container }>
+            <View style={ styles.webcontainer }>
                 <WebView
                 source={{uri:url}}
                 >
@@ -42,5 +43,6 @@ export default class Trailer extends React.Component{
                 <StatusBar hidden={true} />
             </View>
         )
+    }
     }
 }

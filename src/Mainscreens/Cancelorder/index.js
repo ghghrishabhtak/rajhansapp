@@ -7,6 +7,7 @@ import colors from '../../Config/Colors';
 import SERVER_URL from '../../Config/constant';
 import Loading from '../../Components/Loadings';
 import Moment from 'moment';
+import Colors from '../../Config/Colors';
 
 
 
@@ -44,7 +45,7 @@ export default class Cancel extends React.Component{
                     seat_row:p.data.seatsDetails[0].seat_row_nr,
                     seat_no:p.data.seatsDetails[0].seat_nr,
                     //date:p.data.seatsDetails[0].order_date,
-                    date:Moment(p.data.seatsDetails[0].order_date).format('dddd, DD MM YYYY hh:mm A'),
+                    date:Moment(p.data.seatsDetails[0].order_date).format('ddd, DD MMM YYYY hh:mm A'),
                     seatid:p.data.seatsDetails[0].seat_id,
                 })
             })
@@ -99,7 +100,7 @@ export default class Cancel extends React.Component{
             
                 { this.state.listvisible?
                     null:
-               <View>
+               <View  style={styles.detailview}>
                 <Text style={ styles.datetxt }>{ date }</Text>
                 <View style = { styles.categorytxt }>
                   <View>

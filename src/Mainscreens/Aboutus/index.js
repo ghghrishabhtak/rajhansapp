@@ -31,6 +31,7 @@ export default class About extends React.Component{
                <WebView
         source={{uri: 'https://lcahgoa.in/index.php/app/aboutus'}}
         style={{marginTop: 20}}
+        startInLoadingState
       />
                <StatusBar hidden={true} />
             </View>

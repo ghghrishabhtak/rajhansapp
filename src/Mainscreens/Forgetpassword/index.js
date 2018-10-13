@@ -16,6 +16,9 @@ export default class Forget extends React.Component{
       
 
     state = { email: '' }
+    onGo=()=>{
+        this.props.navigation.navigate('confirmbook')
+    }
     render(){
         return(
             <View style={styles.container}>
@@ -24,7 +27,9 @@ export default class Forget extends React.Component{
                onChangeText = {(email)=>this.setState({email})}
                style = {styles.emailtxt}
                ></TextInput>
-               <TouchableOpacity>
+               <TouchableOpacity
+               onPress={ this.onGo }
+               >
                <View style={styles.btn}>
                    <Text style={styles.txtbtn}>Submit</Text>
                </View>

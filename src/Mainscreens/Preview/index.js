@@ -52,7 +52,9 @@ export default class Preview extends React.Component{
         ),
       })
       onTrailerGo =()=>{
-          this.props.navigation.navigate('TrailerScreen')
+          this.props.navigation.navigate('TrailerScreen', {
+            namesparam: this.state.name
+          });
       }
       onBookGo =()=>{
         this.props.navigation.navigate('BOOK',{
@@ -142,6 +144,7 @@ export default class Preview extends React.Component{
     render(){
         return(
             <View style={ styles.container }>
+            <ScrollView>
                <View style = { styles.imgview }>
                    <Image
                    source={{ uri:this.state.poster }}
@@ -161,6 +164,7 @@ export default class Preview extends React.Component{
                        <Text style={ styles.txtgenre }>{ this.state.genre }</Text>
             </View>
             <View><Text style={ styles.txtintro }>{ this.state.description }</Text></View>
+            
             <View style={ styles.btnview }>
             <TouchableOpacity
             onPress={ this.onBookGo }
@@ -179,7 +183,7 @@ export default class Preview extends React.Component{
                      
             </View>
             <StatusBar hidden={true} />
-            
+            </ScrollView>
             </View>
             
         )

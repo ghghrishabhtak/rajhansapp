@@ -37,8 +37,6 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignSelf: 'center',
         marginTop: 10,
-        marginHorizontal: 25,
-        
      },
      bothbtn:{
         backgroundColor: colors.Royal_blue,
@@ -54,5 +52,11 @@ export default StyleSheet.create({
      txt:{
          color: colors.black,
          fontSize: 15
-     }
+     },
+     detailview:{
+         borderWidth:1,
+         borderColor:colors.blue,
+         borderRadius:3,
+         padding:5
+        }
 })

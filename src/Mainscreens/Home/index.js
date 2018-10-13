@@ -257,6 +257,7 @@ export default class Home extends React.Component{
                 horizontal= {true}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
+                  
                   <Image
                   style={ styles.cmngimg }
                   source={{ uri:item.url }}

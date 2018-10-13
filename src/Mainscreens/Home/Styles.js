@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import colors from '../../Config/Colors'
+import colors from '../../Config/Colors';
 
 export default StyleSheet.create({
     container:{
@@ -16,7 +16,7 @@ export default StyleSheet.create({
     showingview:{
         height:'40%',
         marginTop:10,
-        backgroundColor: colors.white,
+        backgroundColor: colors.grey,
     },
     img:{
      width: 80,
@@ -54,7 +54,7 @@ export default StyleSheet.create({
           left: 0,
           right: 0,
           height: '42%',
-          padding: 2,
+          padding: 10,
           //justifyContent: 'center',
           //alignItems: 'center'
          
@@ -76,6 +76,7 @@ export default StyleSheet.create({
         fontFamily: 'SFProText-Regular',
         fontSize: 22,
         alignSelf: 'flex-start',
+        color: colors.black
         },
         rowendtitle: {
         fontFamily: 'SFProText-Medium',
@@ -107,11 +108,15 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         borderColor: colors.blue,
-        padding: 1
+        padding: 1,
+        backgroundColor: colors.white
         },
         ratingview:{
             flexDirection: 'row',
             marginTop: 5,
             marginLeft: 3
+        },
+        listsview:{
+            justifyContent: 'center'
         }
 })

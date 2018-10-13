@@ -13,10 +13,17 @@ export default class Book extends React.Component{
        date: '',
        time: '',
        type: '',
-       datas: []
+       datas: [],
+       movname: '',
+       ort: ''
     }
 
-    componentWillMount = () => {
+    componentWillMount =  () => {
+        AsyncStorage.getItem('MOVIE_NAME').then(movn=>{
+            this.setState({
+                movname: movn
+            })
+        })
         const { navigation } = this.props;
         const moviename=navigation.getParam('moviename',null);
         const movies=navigation.getParam('moviearray',null);
@@ -38,6 +45,8 @@ export default class Book extends React.Component{
                     event_time:Moment(groupDate[dates[i]][j].event_time,"hh:mm A").format('hh:mm A') ,
                     event_type: groupDate[dates[i]][j].event_type,
                     event_id: groupDate[dates[i]][j].event_id,
+                    ort_id: groupDate[dates[i]][j].ort_id,
+                    ort_name: groupDate[dates[i]][j].ort_name,
                 })
                
               }
@@ -64,9 +73,14 @@ export default class Book extends React.Component{
           </TouchableOpacity>
         ),
       })
-      goToMap = (eventid) =>{
+      goToMap = (eventid,ortid,date,time,ortname) =>{
           this.props.navigation.navigate('MapScreen',{
-              eventsid: eventid
+              eventsid: eventid,
+              mname: this.state.movname,
+              ortsid: ortid,
+              edate: date,
+              etime: time,
+              oname: ortname
           })
       }
       showtype=(type)=>{
@@ -98,7 +112,7 @@ export default class Book extends React.Component{
                            renderItem={({ item })=>(
                                <View style={ styles.horlistview }>
                                <TouchableOpacity
-                               onPress= {()=> this.goToMap(item.event_id) }
+                               onPress= {()=> this.goToMap(item.event_id,item.ort_id,item.event_date,item.event_time,item.ort_name) }
                                >
                                    <View style={ styles.showview }>
                                        <Text style={ styles.txttime }>{item.event_time}</Text>
