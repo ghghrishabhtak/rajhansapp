@@ -20,9 +20,10 @@ export default class Confirmbooking extends React.Component{
         },
       };
     gotoHome=()=>{
-        this.props.navigation.navigate('Home')
+        this.props.navigation.navigate('HOME')
     }
     gotoOrder=()=>{
+        this.props.navigation.popToTop();
         this.props.navigation.navigate('OrderHistory')
     }
     render(){
@@ -36,13 +37,13 @@ export default class Confirmbooking extends React.Component{
                  onPress={this.gotoHome}
                  >
                <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.btnpreview}>
-                     <Text style={styles.btntxt}>HOME</Text>
+                     <Text style={styles.btntxt}>Home</Text>
                      </LinearGradient></TouchableOpacity>
                      <TouchableOpacity
                      onPress={this.gotoOrder}
                      >
                      <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.btnpreview}>
-                     <Text style={styles.btntxt}>VIEW ORDER</Text>
+                     <Text style={styles.btntxt}>View Order</Text>
                      </LinearGradient></TouchableOpacity>
                  </View>
                  <Text style={ styles.lasttxt }>Please carry your ID cards. Enjoy Rajhans experience!</Text>

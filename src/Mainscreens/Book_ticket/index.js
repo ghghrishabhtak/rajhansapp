@@ -74,7 +74,7 @@ export default class Book extends React.Component{
         ),
       })
       goToMap = (eventid,ortid,date,time,ortname) =>{
-          this.props.navigation.navigate('MapScreen',{
+          this.props.navigation.navigate('MAP',{
               eventsid: eventid,
               mname: this.state.movname,
               ortsid: ortid,

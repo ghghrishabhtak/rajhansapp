@@ -188,14 +188,14 @@ export default class Home extends React.Component{
                  onPress= {()=> this.onPreviewGo(item.event_name,item.POSTER,item.RATING,item.GENRE,item.STARCAST,item.DESCRIPTION,item.VIDEO) }
                  >
                    <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.btnpreview}>
-                     <Text style={styles.btntxt}>PREVIEW</Text>
+                     <Text style={styles.btntxt}>Preview</Text>
                    </LinearGradient>
                    </TouchableOpacity>
                    <TouchableOpacity
                    onPress={()=> this.onBookGo(item.event_name) }
                    >
                    <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.btnpreview}>
-                     <Text style={styles.btntxt}>BOOK</Text>
+                     <Text style={styles.btntxt}>Book</Text>
                      </LinearGradient>
                    </TouchableOpacity>
                </View>
@@ -236,8 +236,8 @@ export default class Home extends React.Component{
       }
         
         return(
-          
-            <View style={ styles.container }>
+          <ScrollView contentContainerStyle={{ backgroundColor: colors.grey, height: '100%' }}>
+            <View style={ styles.container }>    
                <Text style = { styles.headtxt }>Now Showing...</Text>
                <View style = {styles.showingview}>
                { this.showMov(response) }
@@ -264,11 +264,13 @@ export default class Home extends React.Component{
                   ></Image> 
                 )}
               />
-               </ScrollView>
-                          
+              </ScrollView>           
                </View>
                <StatusBar hidden={true} />
+               
             </View>
+            </ScrollView>
+            
         )
     }
 }

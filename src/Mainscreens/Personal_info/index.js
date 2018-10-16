@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import PopupDialog, { DialogTitle } from 'react-native-popup-dialog';
 import Axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
+import Toast from 'react-native-simple-toast';
 
 
 export default class Personal extends React.Component{
@@ -52,19 +53,19 @@ export default class Personal extends React.Component{
       getPassword=()=>{
           const { email, oldpassword, newpassword, confirmpassword} = this.state;
           if( oldpassword ===''|| newpassword===''|| confirmpassword===''){
-               Alert.alert('Please fill required fields')
+               Toast.show('Please fill required fields', Toast.LONG);
           }
           else if( confirmpassword != newpassword ){
-            Alert.alert('Password and Confirm password must be same')
+            Toast.show('Password and Confirm password must be same', Toast.LONG);
           }
           else{
             Axios.get('https://lcahgoa.in/index.php/app/changepassword?username='+email+'&oldpassword='+oldpassword+'&newpassword='+newpassword).then(p=>{
                 console.log(p)
                 if(p.data.status === 'True'){
-                    Alert.alert('Password change successfully')
+                    Toast.show('Password change successfully', Toast.LONG);
                     
                 }else{
-                    Alert.alert('Something went wrong!')
+                    Toast.show('Something went wrong!', Toast.LONG);
                 }
             })
           }
@@ -72,15 +73,15 @@ export default class Personal extends React.Component{
       getMobile=()=>{
           const { mobile_no, email } = this.state;
           if( mobile_no === '' ){
-              Alert.alert('Please enter mobile fields')
+              Toast.show('Please enter mobile fields', Toast.LONG);
           }
           else{
             Axios.get('https://lcahgoa.in/index.php/app/updateuserinfo?username='+email+'&profilemobile='+mobile_no).then(p=>{
                 console.log(p)
                 if(p.data.status === 'True'){
-                    Alert.alert('Mobile number updated successfully')
+                    Toast.show('Mobile number updated successfully', Toast.LONG);
                 }else{
-                    Alert.alert('Something went wrong')
+                    Toast.show('Something went wrong', Toast.LONG);
                 }
             })
           }

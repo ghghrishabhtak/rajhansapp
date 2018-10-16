@@ -25,9 +25,6 @@ const LoginStack = createStackNavigator({
     LoginsScreen: {
         screen: LoginScreen,
     },
-        ForgetScreen:{
-            screen: ForgetScreen
-        },
 })
 
 const AboutusStack = createStackNavigator({
@@ -66,18 +63,25 @@ const HomeStack = createStackNavigator({
         screen: HomeScreen,
 
     },
-    Order: {
-        screen: OrderPageScreen,
-
-    },
-    confirmbook: {
-        screen: ConfirmBookingScreen,
-
-    },
+    
   
 },{
     initialRouteName: 'HOME'
 })
+const confirmbookStack = createStackNavigator({
+    CONFIRMBOOK: {
+        screen: ConfirmBookingScreen,
+
+    },
+})
+const OrderPageStack = createStackNavigator({
+    ORDERPAGE: {
+        screen: OrderPageScreen,
+
+    },
+    
+})
+
 
 
 const PersonalStack = createStackNavigator({
@@ -94,6 +98,8 @@ const PreviewStack = createStackNavigator({
     TrailerScreen:{
         screen: TrailerScreen
     },
+},{
+    initialRouteName: 'PREVIEW'
 })
 
 const BookStack = createStackNavigator({
@@ -102,17 +108,28 @@ const BookStack = createStackNavigator({
     },
 
     
-    MapScreen:{
+    MAP:{
         screen: Mapscreen
     },
+    
+},{
+    initialRouteName: 'BOOK'
 })
 const OrderStack = createStackNavigator({
     ORDER: {
         screen: OrderHistoryScreen,
     },
-    CancelorderScreen:{
+    // Cancelorder:{
+    //     screen: CancelorderScreen
+    // },
+    
+},{
+    initialRouteName: 'ORDER'
+})
+const CancelStack = createStackNavigator({
+    CANCELORDER:{
         screen: CancelorderScreen
-    }
+    },
 })
 const AppStack = createDrawerNavigator(
     {
@@ -140,7 +157,9 @@ const MainStack = createDrawerNavigator(
         Preview: PreviewStack,
         Book: BookStack,
         OrderHistory: OrderStack,
-        confirmbook: ConfirmBookingScreen
+        ConfirmBook: confirmbookStack,
+        Cancelorder: CancelStack,
+        Orderpage: OrderPageStack
     },
     {
         initialRouteName: 'Home',

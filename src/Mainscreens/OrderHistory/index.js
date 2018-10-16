@@ -43,7 +43,7 @@ export default class History extends React.Component{
     onCancalPress=(item)=>{
        AsyncStorage.setItem('ORDER_NO',item.order_id)
        AsyncStorage.setItem('ORDER_DATE',item.order_date)
-       this.props.navigation.navigate('CancelorderScreen')
+       this.props.navigation.navigate('CANCELORDER')
     }
     checkButton =(item)=>{
        if(item.order_status === 'cancel'){
@@ -54,7 +54,7 @@ export default class History extends React.Component{
           onPress={()=> this.onCancalPress(item) }
           >     
         <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.btnpreview}>
-        <Text style={styles.btntxt}>CANCEL ORDER</Text>
+        <Text style={styles.btntxt}>Cancel Order</Text>
       </LinearGradient></TouchableOpacity>)
        }
     }

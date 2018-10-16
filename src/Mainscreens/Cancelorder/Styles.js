@@ -46,7 +46,7 @@ export default StyleSheet.create({
          justifyContent: 'center',
          paddingVertical: 8,
          paddingHorizontal: 10,
-         width: 128,
+         width: 135,
          marginLeft: 3
      },
      txt:{

@@ -4,6 +4,7 @@ import styles from './Styles';
 import colors from '../../Config/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Axios from 'axios';
+import Toast from 'react-native-simple-toast';
 
 export default class Suggestion extends React.Component{
     static navigationOptions = ({ navigation }) => ({
@@ -32,18 +33,18 @@ export default class Suggestion extends React.Component{
     getSuggestion=()=>{
         const{ mail,suggestion } = this.state;
         if(suggestion === ''){
-          Alert.alert('Please write suggestion')
+            Toast.show('Please write suggestion', Toast.LONG);
         }
         else{
            Axios.get('https://lcahgoa.in/index.php/app/moviesuggestion?email_id='+mail+'&comments='+suggestion).then(p=>{
                console.log(p)
                if(p.data.status == 'True'){
-                   Alert.alert('Suggestion sent successfully')
+                Toast.show('Suggestion sent successfully', Toast.LONG);
                    this.setState({
                   suggestion: ''     
                 })
                }else{
-                   Alert.alert('Something went wrong')
+                Toast.show('Something went wrong', Toast.LONG);
                }               
            })
         }
@@ -61,7 +62,7 @@ export default class Suggestion extends React.Component{
               ></TextInput>
               <TextInput
               style = { styles.feedbackinput }
-              placeholder = 'suggestion'
+              placeholder = 'Write here Suggestion'
               multiline = { true }
               onChangeText= {text=>this.setState({ suggestion: text })}
               value={this.state.suggestion}
@@ -70,7 +71,7 @@ export default class Suggestion extends React.Component{
               onPress={ this.getSuggestion }
               >
               <View style={ styles.sendbtn }>
-                  <Text style={ styles.btntxt }>SEND</Text>
+                  <Text style={ styles.btntxt }>Send</Text>
               </View>
               </TouchableOpacity>
               </ScrollView>

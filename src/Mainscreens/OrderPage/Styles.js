@@ -100,7 +100,8 @@ export default StyleSheet.create({
     btnview:{
         flexDirection: 'row',
        alignSelf: 'center',
-        marginTop: 5
+        marginTop: 5,
+        marginBottom: 10
     },
     btnpreview:{
         backgroundColor: Colors.Royal_blue,

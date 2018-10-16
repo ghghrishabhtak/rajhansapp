@@ -1,9 +1,12 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StatusBar, AsyncStorage, Alert} from 'react-native';
+import {View, Text, TouchableOpacity, StatusBar, AsyncStorage, Alert, ScrollView} from 'react-native';
 import styles from './Styles';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../../Config/Colors';
 import Axios from 'axios';
+import Loading from '../../Components/Loadings';
+import Toast from 'react-native-simple-toast';
+import Icon from "react-native-vector-icons/Ionicons";
 
 export default class Orderpage extends React.Component{
     state = { 
@@ -12,6 +15,7 @@ export default class Orderpage extends React.Component{
         counts: '',
         name: '',
         number: '',
+        loading: false
      }
      componentWillMount = () =>{
         const oid= this.props.navigation.getParam('order_id')
@@ -37,13 +41,25 @@ export default class Orderpage extends React.Component{
             // number: sno 
         })
      }
-     static navigationOptions =  {
+     static navigationOptions = ({navigation}) =>  ({
         title: 'Order Page',
         headerTintColor: colors.white,
         headerStyle: {
           backgroundColor: colors.blue,
         },
-      };
+        headerLeft:  (
+            <TouchableOpacity
+            onPress = { ()=>navigation.navigate('HOME') }
+            >
+                <Icon
+                name = 'md-arrow-back'
+                size={ 32 }
+                style={{ marginLeft: 15 }}
+                color= {colors.white}
+                ></Icon>
+            </TouchableOpacity>
+               )
+      });
      renderSeats = (seat) =>{
         var s = '';
         var u = ',';
@@ -53,12 +69,15 @@ export default class Orderpage extends React.Component{
          return <Text style = { styles.seatview }>: [ {s.replace(/,\s*$/, "")} ]</Text>;
      }
      confirmBook = (oids,onames,ouids) =>{
+        this.setState({loading: true})
         Axios.get('https://lcahgoa.in/index.php/app/confirmOrder/?order_id='+oids+'&profileemail='+onames+'&currentUser='+ouids+'&method=7').then(p=>{
+            this.setState({loading: false})
             console.log(p)
             if(p.data.status == 'True'){
-                this.props.navigation.navigate('confirmbook',{
+                this.props.navigation.navigate('CONFIRMBOOK',{
                     msg: p.data.Message
                 })
+                
             }
             else{
               Alert.alert('Something went wrong')
@@ -66,19 +85,28 @@ export default class Orderpage extends React.Component{
         })
      }
      cancelOrder = (orrid,uuid) =>{
+        this.setState({loading: true})
          Axios.get('https://lcahgoa.in/index.php/app/newcancelorder/?orderid='+orrid+'&user_id='+uuid+'&is_admin=NO').then(ps=>{
+            this.setState({loading: false})
              console.log(ps)
-             if(ps.data.success == 'Your order has been canceled successfully.'){
-                 Alert.alert('your order cancel successfully')
+             if(ps.data.success == true){
+                Toast.show(ps.data.msg, Toast.LONG);
+                    this.props.navigation.navigate('HOME')
              } else{
-                 Alert.alert('Something went wrong please check u book your ticket or not')
+                Toast.show(ps.data.msg, Toast.LONG);
              }
          })
      }
     render(){
-        const { orderid, orderarray, counts, name, number } = this.state;
+        const { orderid, orderarray, counts, name, number, loading } = this.state;
+        if(loading){
+            return (
+                <Loading/>
+              )
+            }
         return(
             <View style={ styles.container }>
+            <ScrollView>
                <Text style={ styles.ftxt }>PLEASE CONFIRM YOUR ORDER DETAILS.</Text>
                <Text style={ styles.stxt }>Show Details</Text>
                <View style = { styles.detailView }>
@@ -145,6 +173,10 @@ export default class Orderpage extends React.Component{
                      </LinearGradient></TouchableOpacity>      
                </View>
                <StatusBar hidden={true} />
+               {/* <Toast
+               ref = 'toast'
+               ></Toast> */}
+               </ScrollView>
             </View>
         )
     }

@@ -44,8 +44,9 @@ export default StyleSheet.create({
     },
     btnview:{
         flexDirection: 'row',
-        marginTop: 50,
+        marginTop: 15,
         alignSelf: 'center',
+        marginBottom: 5
         
     },
     booktktview:{

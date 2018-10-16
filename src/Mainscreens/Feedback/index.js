@@ -4,7 +4,7 @@ import styles from './Styles';
 import colors from '../../Config/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Axios from 'axios';
-
+import Toast from 'react-native-simple-toast';
 
 export default class Feedback extends React.Component{
     static navigationOptions = ({ navigation }) => ({
@@ -33,17 +33,17 @@ export default class Feedback extends React.Component{
     getSend=()=>{
         const {mail,Feedback} = this.state;
         if( Feedback === '' ){
-          Alert.alert('Please write feedback')
+            Toast.show('Please write feedback', Toast.LONG);
         }else{
        Axios.get('https://lcahgoa.in/index.php/app/feedback?emailid='+mail+'&comments='+Feedback).then(p=>{
            console.log(p)
            if(p.data.status == 'True'){
-            Alert.alert('Suggestion sent successfully')
+            Toast.show('Suggestion sent successfully', Toast.LONG);
             this.setState({
              Feedback: ''     
          })
            } else{
-               Alert.alert('Something went wrong')
+            Toast.show('Something went wrong', Toast.LONG);
            }
        })
         }
@@ -70,7 +70,7 @@ export default class Feedback extends React.Component{
               onPress= {this.getSend}
               >
               <View style={ styles.sendbtn }>
-                  <Text style={ styles.btntxt }>SEND</Text>
+                  <Text style={ styles.btntxt }>Send</Text>
               </View>
               </TouchableOpacity>
               </ScrollView>

@@ -49,10 +49,7 @@ export default StyleSheet.create({
       },
       cmngview:{
           backgroundColor: colors.Royal_blue,
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
+        marginTop: 20,
           height: '42%',
           padding: 10,
           //justifyContent: 'center',

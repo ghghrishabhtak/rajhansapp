@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,TouchableOpacity,AsyncStorage, Alert } from 'react-native';
+import { View,Text,TouchableOpacity,AsyncStorage, StatusBar } from 'react-native';
 import styles from './Styles';
 import Axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
@@ -8,8 +8,8 @@ import SERVER_URL from '../../Config/constant';
 import Loading from '../../Components/Loadings';
 import Moment from 'moment';
 import Colors from '../../Config/Colors';
-
-
+import Toast from 'react-native-simple-toast';
+import Icon from "react-native-vector-icons/Ionicons";
 
 export default class Cancel extends React.Component{
     state = {
@@ -24,13 +24,25 @@ export default class Cancel extends React.Component{
          seatid:'',
          loading: false
      }
-    static navigationOptions = {
+    static navigationOptions = ({navigation}) => ({
         title: 'Cancel Order',
         headerTintColor: colors.white,
         headerStyle: {
           backgroundColor: colors.blue,
-        }
-      };
+        },
+        headerLeft:  (
+         <TouchableOpacity
+         onPress = { ()=>navigation.navigate('ORDER') }
+         >
+             <Icon
+             name = 'md-arrow-back'
+             size={ 32 }
+             style={{ marginLeft: 15 }}
+             color= {colors.white}
+             ></Icon>
+         </TouchableOpacity>
+            )
+      });
     componentWillMount= async ()=>{
         this.setState({loading: true})
         const ui= await AsyncStorage.getItem('USER_ID');
@@ -58,8 +70,9 @@ export default class Cancel extends React.Component{
             .then(p=>{
                 console.log(p)
                 if(p.data.success == false){
-                    Alert.alert(p.data.msg)
+                    Toast.show(p.data.msg, Toast.LONG);
                 }else{
+                    Toast.show('Seat Cancel Successfully', Toast.LONG);
                 this.setState({
                     listvisible: true
                  })
@@ -74,18 +87,19 @@ export default class Cancel extends React.Component{
             .then(res=>{
                 console.log(res)
                 if(res.data.msg == 'Your order has been canceled successfully.'){
-                     Alert.alert('Your order has been canceled successfully.')
-                     this.props.navigation.navigate('OrderHistory')
+                    Toast.show('Your order has been canceled successfully.', Toast.LONG);
+                    this.props.navigation.navigate('ORDER')
                 }
                 else{
-                    Alert.alert('Something went wrong!!')
+                    Toast.show('Something went wrong!!', Toast.LONG);
                 }
             })
     
 
     }
     goToHome=()=>{
-        this.props.navigation.navigate('Home')
+        this.props.navigation.goBack(null);
+        this.props.navigation.navigate('HOME');
     }
 
     render(){
@@ -112,7 +126,7 @@ export default class Cancel extends React.Component{
                        onPress={ this.seatCancel }
                        >
                     <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.btnpreview}>
-                     <Text style={styles.btntxt}>CANCEL SEAT</Text>
+                     <Text style={styles.btntxt}>Cancel Seat</Text>
                     </LinearGradient>
                     </TouchableOpacity>
                    </View>
@@ -126,17 +140,18 @@ export default class Cancel extends React.Component{
                 onPress={ this.goToHome }
                 >
                 <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.bothbtn}>
-                     <Text style={styles.btntxt}>HOME</Text>
+                     <Text style={styles.btntxt}>Home</Text>
                     </LinearGradient>
                     </TouchableOpacity>
                     <TouchableOpacity
                     onPress={ this.cancelAllSeat }
                     >
                         <LinearGradient colors={[ '#689a92','#2c3dbc']} style={styles.bothbtn}>
-                     <Text style={styles.btntxt}>CANCEL ALL SEATS</Text>
+                     <Text style={styles.btntxt}>Cancel All Seats</Text>
                     </LinearGradient>
                     </TouchableOpacity>
                 </View>
+                <StatusBar hidden={true} />
             </View>
         )
     }

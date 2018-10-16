@@ -16,6 +16,7 @@ export default class Map extends React.Component{
         time: '',
         vanue: '',
         u_dependent: '',
+        loading: false,
         webloading: false
     }
     componentWillMount= async()=>{
@@ -53,6 +54,7 @@ export default class Map extends React.Component{
     
 
       onMessage(data) {
+        this.setState({loading: true})
           console.log(data);
           const { event_id,ort_id,name,date,time,vanue,user_type,u_dependent } = this.state;
           console.log('https://lcahgoa.in/index.php/app/addtocart/?csrf_test_name=' + "9503452c1433fcd9d7cb0f3f98bdac76" + "&event_id=" + event_id + "&catname=" + data.catname + "&catid=" + data.catid + "&ort_id=" + ort_id +
@@ -70,9 +72,10 @@ export default class Map extends React.Component{
         + data.currentUserId + "&seat_id" + data.place + "&myself=" + data.myself + "&spouse=" + data.spouse + "&childrens=" +
         data.childrens + "&parents=" + data.parents + "&brothers=" + data.brothers +
         "&sisters=" + data.sisters + "&guests=" + data.guestMembers).then(p=>{
+            this.setState({loading: false})
             console.log(p);
             if(p.data.orderdetail.status === 'True'){
-                this.props.navigation.navigate('Order',{
+                this.props.navigation.navigate('ORDERPAGE',{
                     order_id: p.data.orderdetail.order_id,
                     order_array: p.data.current_order_info,
                     showcount: data 
@@ -83,8 +86,8 @@ export default class Map extends React.Component{
 
 
      render(){
-         const { width,event_id,user_id,user_type,webloading } = this.state;
-         if (webloading) {
+         const { width,event_id,user_id,user_type,loading } = this.state;
+         if (loading) {
             return (
               <Loading/>
             )
