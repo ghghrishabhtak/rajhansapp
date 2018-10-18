@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,TouchableOpacity,AsyncStorage, StatusBar } from 'react-native';
+import { View,Text,TouchableOpacity,AsyncStorage, StatusBar, Alert } from 'react-native';
 import styles from './Styles';
 import Axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
@@ -47,7 +47,9 @@ export default class Cancel extends React.Component{
         this.setState({loading: true})
         const ui= await AsyncStorage.getItem('USER_ID');
         AsyncStorage.getItem('ORDER_NO').then(oid=>{
-            Axios.get('https://lcahgoa.in/index.php/app/cancelticket?order_id='+oid).then(p=>{
+            Axios.get('https://lcahgoa.in/index.php/app/cancelticket?order_id='+oid,{
+                timeout: 60000
+            }).then(p=>{
                 this.setState({loading: false})
                 console.log(p)
                 this.setState({
@@ -60,13 +62,29 @@ export default class Cancel extends React.Component{
                     date:Moment(p.data.seatsDetails[0].order_date).format('ddd, DD MMM YYYY hh:mm A'),
                     seatid:p.data.seatsDetails[0].seat_id,
                 })
+            }).catch(error=>{
+                this.setState({loading: false})
+                console.log(error)
+                if(error == 'Error: Network Error'){
+                    Alert.alert('Please check your Internet connection,' 
+                    +'Try again...')
+                }
+                else if(error == 'Error: timeout of 60000ms exceeded'){
+                    Alert.alert('Your Internet connection is very poor,'
+                    + 'Try again...')
+                }
+                else{
+                    Alert.alert(''+error)
+                }
             })
         })
         
     }
     seatCancel=()=>{
       const { orederid, useerid, seatid } = this.state;
-            Axios.get('https://lcahgoa.in/index.php/app/cancelseat?orderid='+orederid+'&user_id='+useerid+'&seatid='+seatid)
+            Axios.get('https://lcahgoa.in/index.php/app/cancelseat?orderid='+orederid+'&user_id='+useerid+'&seatid='+seatid,{
+                timeout: 60000
+            })
             .then(p=>{
                 console.log(p)
                 if(p.data.success == false){
@@ -77,13 +95,29 @@ export default class Cancel extends React.Component{
                     listvisible: true
                  })
                 }
+            }).catch(error=>{
+                this.setState({loading: false})
+                console.log(error)
+                if(error == 'Error: Network Error'){
+                    Alert.alert('Please check your Internet connection,' 
+                    +'Try again...')
+                }
+                else if(error == 'Error: timeout of 60000ms exceeded'){
+                    Alert.alert('Your Internet connection is very poor,' 
+                    +'Try again...')
+                }
+                else{
+                    Alert.alert(''+error)
+                }
             })
 
         
     }
     cancelAllSeat=()=>{
         const { orederid, useerid } = this.state;
-            Axios.get('https://lcahgoa.in/index.php/app/newcancelorder?orderid='+orederid+'&user_id='+useerid)
+            Axios.get('https://lcahgoa.in/index.php/app/newcancelorder?orderid='+orederid+'&user_id='+useerid,{
+                timeout: 60000
+            })
             .then(res=>{
                 console.log(res)
                 if(res.data.msg == 'Your order has been canceled successfully.'){
@@ -92,6 +126,20 @@ export default class Cancel extends React.Component{
                 }
                 else{
                     Toast.show('Something went wrong!!', Toast.LONG);
+                }
+            }).catch(error=>{
+                this.setState({loading: false})
+                console.log(error)
+                if(error == 'Error: Network Error'){
+                    Alert.alert('Please check your Internet connection,'
+                    + 'Try again...')
+                }
+                else if(error == 'Error: timeout of 60000ms exceeded'){
+                    Alert.alert('Your Internet connection is very poor,'
+                    + 'Try again...')
+                }
+                else{
+                    Alert.alert(''+error)
                 }
             })
     

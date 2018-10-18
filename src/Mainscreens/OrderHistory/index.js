@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,FlatList,AsyncStorage,TouchableOpacity,StatusBar,ActivityIndicator } from 'react-native';
+import { View,Text,FlatList,AsyncStorage,TouchableOpacity,StatusBar,ActivityIndicator, Alert } from 'react-native';
 import styles from './Styles';
 import Axios from 'axios';
 import colors from '../../Config/Colors';
@@ -30,13 +30,29 @@ export default class History extends React.Component{
     componentWillMount=()=>{
         this.setState({loading: true})
         AsyncStorage.getItem('USER_ID').then(uid=>{
-            Axios.get('https://lcahgoa.in/index.php/app/personalinfo?user_id='+uid).then(p=>{
+            Axios.get('https://lcahgoa.in/index.php/app/personalinfo?user_id='+uid,{
+                timeout: 60000
+            }).then(p=>{
                 this.setState({loading: false})
            console.log(p.data)
            this.setState({
                response: p.data
            })
-       })
+       }).catch(error=>{
+        this.setState({loading: false})
+        console.log(error)
+        if(error == 'Error: Network Error'){
+            Alert.alert('Please check your Internet connection,' 
+            +'Try again...')
+        }
+        else if(error == 'Error: timeout of 60000ms exceeded'){
+            Alert.alert('Your Internet connection is very poor,'
+            + 'Try again...')
+        }
+        else{
+            Alert.alert(''+error)
+        }
+    })
         })
       
     }

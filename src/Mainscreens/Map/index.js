@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,Image,Text, Dimensions,WebView,AsyncStorage} from 'react-native';
+import {View,Image,Text, Dimensions,WebView,AsyncStorage, Alert} from 'react-native';
 import styles from './Styles';
 import Loading from '../../Components/Loadings';
 import Axios from 'axios';
@@ -71,7 +71,9 @@ export default class Map extends React.Component{
         "&user_type=" + user_type + "&user_dependent=" + u_dependent + "&paidseats=" + "0" + "&admiralId=" + data.admiralId + "&currentUser="
         + data.currentUserId + "&seat_id" + data.place + "&myself=" + data.myself + "&spouse=" + data.spouse + "&childrens=" +
         data.childrens + "&parents=" + data.parents + "&brothers=" + data.brothers +
-        "&sisters=" + data.sisters + "&guests=" + data.guestMembers).then(p=>{
+        "&sisters=" + data.sisters + "&guests=" + data.guestMembers,{
+            timeout: 60000
+        }).then(p=>{
             this.setState({loading: false})
             console.log(p);
             if(p.data.orderdetail.status === 'True'){
@@ -80,6 +82,20 @@ export default class Map extends React.Component{
                     order_array: p.data.current_order_info,
                     showcount: data 
                 })
+            }
+        }).catch(error=>{
+            this.setState({loading: false})
+            console.log(error)
+            if(error == 'Error: Network Error'){
+                Alert.alert('Please check your Internet connection,'
+                + 'Try again...')
+            }
+            else if(error == 'Error: timeout of 60000ms exceeded'){
+                Alert.alert('Your Internet connection is very poor,' 
+                +'Try again...')
+            }
+            else{
+                Alert.alert(''+error)
             }
         })
          }

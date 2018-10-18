@@ -36,7 +36,9 @@ export default class Suggestion extends React.Component{
             Toast.show('Please write suggestion', Toast.LONG);
         }
         else{
-           Axios.get('https://lcahgoa.in/index.php/app/moviesuggestion?email_id='+mail+'&comments='+suggestion).then(p=>{
+           Axios.get('https://lcahgoa.in/index.php/app/moviesuggestion?email_id='+mail+'&comments='+suggestion,{
+               timeout: 60000
+           }).then(p=>{
                console.log(p)
                if(p.data.status == 'True'){
                 Toast.show('Suggestion sent successfully', Toast.LONG);
@@ -46,7 +48,21 @@ export default class Suggestion extends React.Component{
                }else{
                 Toast.show('Something went wrong', Toast.LONG);
                }               
-           })
+           }).catch(error=>{
+            this.setState({loading: false})
+            console.log(error)
+            if(error == 'Error: Network Error'){
+                Alert.alert('Please check your Internet connection,'
+                + 'Try again...')
+            }
+            else if(error == 'Error: timeout of 60000ms exceeded'){
+                Alert.alert('Your Internet connection is very poor,'
+                + 'Try again...')
+            }
+            else{
+                Alert.alert(''+error)
+            }
+        })
         }
     }
     render(){

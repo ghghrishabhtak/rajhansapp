@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,Text,TouchableOpacity,TextInput,AsyncStorage,FlatList,Image,ActivityIndicator,StatusBar,ScrollView} from 'react-native';
+import {View,Text,TouchableOpacity,TextInput,AsyncStorage,FlatList,Image,ActivityIndicator,StatusBar,ScrollView,Alert} from 'react-native';
 import styles from './Styles';
 import colors from '../../Config/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -23,7 +23,9 @@ export default class Home extends React.Component{
   
   componentWillMount=()=>{
     this.setState({loading: true})
-     Axios.get('https://lcahgoa.in/index.php/app/event/').then(p=>{
+     Axios.get('https://lcahgoa.in/index.php/app/event/',{
+       timeout: 60000
+     }).then(p=>{
       this.setState({loading: false})
         //  console.log(groupBy(p.data.allevents,item=>item.event_name))
         //  let groupData=groupBy(p.data.allevents,item=>item.event_name);
@@ -52,7 +54,21 @@ export default class Home extends React.Component{
           coming_response: p.data.comingsoon,
         })
 
-     })
+     }).catch(error=>{
+      this.setState({loading: false})
+      console.log(error)
+      if(error == 'Error: Network Error'){
+          Alert.alert('Please check your Internet connection,' 
+          +'Try again...')
+      }
+      else if(error == 'Error: timeout of 60000ms exceeded'){
+          Alert.alert('Your Internet connection is very poor,' 
+          +'Try again...')
+      }
+      else{
+          Alert.alert(''+error)
+      }
+  })
   }
   onPreviewGo =(movie_name,movie_poster,movie_rating,movie_genre,movie_starcast,movie_description,movie_video)=>{
     console.log(movie_name)
@@ -209,7 +225,7 @@ export default class Home extends React.Component{
          if(res.length == ''|| res.length == null){
            return(
              <View style = {{ justifyContent: 'center', alignItems: 'center', height:'100%' }}>
-             <Text style = {{ color: colors.black }}>Right Now No Movies Available</Text>
+             <Text style = {{ color: colors.black }}>Right now there is no movie shows.</Text>
              </View>
            )
          }

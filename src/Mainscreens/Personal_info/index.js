@@ -59,13 +59,29 @@ export default class Personal extends React.Component{
             Toast.show('Password and Confirm password must be same', Toast.LONG);
           }
           else{
-            Axios.get('https://lcahgoa.in/index.php/app/changepassword?username='+email+'&oldpassword='+oldpassword+'&newpassword='+newpassword).then(p=>{
+            Axios.get('https://lcahgoa.in/index.php/app/changepassword?username='+email+'&oldpassword='+oldpassword+'&newpassword='+newpassword,{
+                timeout: 60000
+            }).then(p=>{
                 console.log(p)
                 if(p.data.status === 'True'){
                     Toast.show('Password change successfully', Toast.LONG);
                     
                 }else{
                     Toast.show('Something went wrong!', Toast.LONG);
+                }
+            }).catch(error=>{
+                this.setState({loading: false})
+                console.log(error)
+                if(error == 'Error: Network Error'){
+                    Alert.alert('Please check your Internet connection,'
+                    + 'Try again...')
+                }
+                else if(error == 'Error: timeout of 60000ms exceeded'){
+                    Alert.alert('Your Internet connection is very poor,' 
+                    +'Try again...')
+                }
+                else{
+                    Alert.alert(''+error)
                 }
             })
           }
@@ -76,12 +92,28 @@ export default class Personal extends React.Component{
               Toast.show('Please enter mobile fields', Toast.LONG);
           }
           else{
-            Axios.get('https://lcahgoa.in/index.php/app/updateuserinfo?username='+email+'&profilemobile='+mobile_no).then(p=>{
+            Axios.get('https://lcahgoa.in/index.php/app/updateuserinfo?username='+email+'&profilemobile='+mobile_no,{
+                timeout: 60000
+            }).then(p=>{
                 console.log(p)
                 if(p.data.status === 'True'){
                     Toast.show('Mobile number updated successfully', Toast.LONG);
                 }else{
                     Toast.show('Something went wrong', Toast.LONG);
+                }
+            }).catch(error=>{
+                this.setState({loading: false})
+                console.log(error)
+                if(error == 'Error: Network Error'){
+                    Alert.alert('Please check your Internet connection,' 
+                    +'Try again...')
+                }
+                else if(error == 'Error: timeout of 60000ms exceeded'){
+                    Alert.alert('Your Internet connection is very poor,'
+                    + 'Try again...')
+                }
+                else{
+                    Alert.alert(''+error)
                 }
             })
           }

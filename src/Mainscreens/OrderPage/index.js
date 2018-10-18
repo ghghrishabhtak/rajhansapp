@@ -15,6 +15,7 @@ export default class Orderpage extends React.Component{
         counts: '',
         name: '',
         number: '',
+        networkerror: false,
         loading: false
      }
      componentWillMount = () =>{
@@ -70,7 +71,9 @@ export default class Orderpage extends React.Component{
      }
      confirmBook = (oids,onames,ouids) =>{
         this.setState({loading: true})
-        Axios.get('https://lcahgoa.in/index.php/app/confirmOrder/?order_id='+oids+'&profileemail='+onames+'&currentUser='+ouids+'&method=7').then(p=>{
+        Axios.get('https://lcahgoa.in/index.php/app/confirmOrder/?order_id='+oids+'&profileemail='+onames+'&currentUser='+ouids+'&method=7',{
+            timeout: 60000
+        }).then(p=>{
             this.setState({loading: false})
             console.log(p)
             if(p.data.status == 'True'){
@@ -82,11 +85,27 @@ export default class Orderpage extends React.Component{
             else{
               Alert.alert('Something went wrong')
             }
+        }).catch(error=>{
+            this.setState({loading: false})
+            console.log(error)
+            if(error == 'Error: Network Error'){
+                Alert.alert('Please check your Internet connection' 
+                +'Try again...')
+            }
+            else if(error == 'Error: timeout of 60000ms exceeded'){
+                Alert.alert('Your Internet connection is very poor'
+                 +'Try again...')
+            }
+            else{
+                Alert.alert(''+error)
+            }
         })
      }
      cancelOrder = (orrid,uuid) =>{
         this.setState({loading: true})
-         Axios.get('https://lcahgoa.in/index.php/app/newcancelorder/?orderid='+orrid+'&user_id='+uuid+'&is_admin=NO').then(ps=>{
+         Axios.get('https://lcahgoa.in/index.php/app/newcancelorder/?orderid='+orrid+'&user_id='+uuid+'&is_admin=NO',{
+             timeout: 60000
+         }).then(ps=>{
             this.setState({loading: false})
              console.log(ps)
              if(ps.data.success == true){
@@ -95,7 +114,19 @@ export default class Orderpage extends React.Component{
              } else{
                 Toast.show(ps.data.msg, Toast.LONG);
              }
-         })
+         }).catch(error=>{
+            this.setState({loading: false})
+            console.log(error)
+            if(error == 'Error: Network Error'){
+                Alert.alert('Please check your connection, Try again...')
+            }
+            else if(error == 'Error: timeout of 60000ms exceeded'){
+                Alert.alert('Your Internet connection is very poor, Try again...')
+            }
+            else{
+                Alert.alert(''+error)
+            }
+        })
      }
     render(){
         const { orderid, orderarray, counts, name, number, loading } = this.state;
